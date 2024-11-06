@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import characterImage from '../../../assets/images/characters/상상부기.png';
+import characterImage from '../../../assets/images/characters/Turttle.png';
 
 // 전체 페이지를 감싸는 컨테이너
 const LoginPageContainer = styled.div`
@@ -224,15 +224,15 @@ const LoginPage = () => {
             <HelloText>HELLO,</HelloText>
             <StrangerText>STRANGER</StrangerText>
           </TitleContainer>
-          <Input 
-            type="text" 
-            placeholder="id" 
+          <Input
+            type="text"
+            placeholder="id"
             value={id}
             onChange={(e) => setId(e.target.value)}
           />
-          <Input 
-            type="password" 
-            placeholder="password" 
+          <Input
+            type="password"
+            placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
