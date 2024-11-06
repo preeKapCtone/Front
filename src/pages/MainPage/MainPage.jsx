@@ -27,7 +27,7 @@ const CardsContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width: 300px; // 변경된 부분
+  width: 300px; 
   background-color: ${props => props.bgColor || 'white'};
   border-radius: 15px;
   padding: 10px;
@@ -42,7 +42,7 @@ const Card = styled.div`
 
 const CardImage = styled.img`
   width: 100%;
-  height: 400px; // 변경된 부분
+  height: 400px; 
   border-radius: 10px;
   margin-bottom: 10px;
   object-fit: cover;
@@ -64,12 +64,17 @@ const ChatButton = styled.button`
   padding: 8px;
   border: none;
   border-radius: 5px;
-  background-color: ${props => props.buttonColor || '#ff9aff'};
+  background-color: ${props => props.buttonColor};
   color: white;
   font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
   margin-top: auto;
+  transition: background-color 0.3s ease; /* 부드러운 색상 전환 효과 */
+
+  &:hover {
+    background-color: ${props => props.hoverColor || '#d18ae6'}; /* 마우스를 올렸을 때 색상 */
+  }
 `;
 
 const MainPage = () => {
@@ -83,19 +88,21 @@ const MainPage = () => {
                         <CardImage src={Frieren} alt="FRIEREN" />
                         <CardTitle>FRIEREN</CardTitle>
                         <CardDescription>The mage who lives 1000 years</CardDescription>
-                        <ChatButton buttonColor="#ff9aff">Let's chat!</ChatButton>
+                        <ChatButton buttonColor="#ff9aff" hoverColor="#e18ee0">Let's chat!</ChatButton>
                     </Card>
+
                     <Card bgColor="#8f9dff">
                         <CardImage src={Tuttle} alt="BOOGIE" />
                         <CardTitle>BOOGIE</CardTitle>
                         <CardDescription>the lovely turtle who lives in our univ</CardDescription>
-                        <ChatButton buttonColor="#b5a4ff">Let's chat!</ChatButton>
+                        <ChatButton buttonColor="#b5a4ff" hoverColor="#7e8bd1">Let's chat!</ChatButton>
                     </Card>
+
                     <Card bgColor="#a9a9a9">
                         <CardImage src={Baek} alt="JONGWON BAEK" />
                         <CardTitle>JONGWON BAEK</CardTitle>
                         <CardDescription>korean sweet Gordon ramsay</CardDescription>
-                        <ChatButton buttonColor="#d3d3d3">Let's chat!</ChatButton>
+                        <ChatButton buttonColor="#d3d3d3" hoverColor="#b0b0b0">Let's chat!</ChatButton>
                     </Card>
                 </CardsContainer>
                 <Footer />
