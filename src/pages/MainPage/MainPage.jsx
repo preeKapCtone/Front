@@ -22,12 +22,20 @@ const CardsContainer = styled.div`
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background-color: #b5a4ff;
+  background-color: #8f9dff;
   flex: 1; 
 `;
 
+const CardWrapper = styled.div`
+  background-color: white;
+  padding: 10px; /* 흰색 테두리 */
+  border-radius: 20px; /* 자식과 비슷하지만 더 큰 radius로 둥글게 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
 const Card = styled.div`
-  width: 300px; 
+  width: 25vw;
+  max-width: 300px;
   background-color: ${props => props.bgColor || 'white'};
   border-radius: 15px;
   padding: 10px;
@@ -37,12 +45,12 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const CardImage = styled.img`
   width: 100%;
-  height: 400px; 
+  height: 50vh; /* 화면 높이의 40% */
+  max-height: 400px; /* 최대 높이 제한 */
   border-radius: 10px;
   margin-bottom: 10px;
   object-fit: cover;
@@ -84,26 +92,32 @@ const MainPage = () => {
             <MainPageContainer>
                 <Header />
                 <CardsContainer>
-                    <Card bgColor="#ffb6c1">
-                        <CardImage src={Frieren} alt="FRIEREN" />
-                        <CardTitle>FRIEREN</CardTitle>
-                        <CardDescription>The mage who lives 1000 years</CardDescription>
-                        <ChatButton buttonColor="#ff9aff" hoverColor="#e18ee0">Let's chat!</ChatButton>
-                    </Card>
+                    <CardWrapper>
+                        <Card bgColor="#ffb6c1">
+                            <CardImage src={Frieren} alt="FRIEREN" />
+                            <CardTitle>FRIEREN</CardTitle>
+                            <CardDescription>The mage who lives 1000 years</CardDescription>
+                            <ChatButton buttonColor="#ff9aff" hoverColor="#e18ee0">Let's chat!</ChatButton>
+                        </Card>
+                    </CardWrapper>
 
-                    <Card bgColor="#8f9dff">
+                    <CardWrapper>
+                        <Card bgColor="#8f9dff">
                         <CardImage src={Tuttle} alt="BOOGIE" />
                         <CardTitle>BOOGIE</CardTitle>
                         <CardDescription>the lovely turtle who lives in our univ</CardDescription>
                         <ChatButton buttonColor="#b5a4ff" hoverColor="#7e8bd1">Let's chat!</ChatButton>
                     </Card>
+                    </CardWrapper>
 
-                    <Card bgColor="#a9a9a9">
+                    <CardWrapper>
+                        <Card bgColor="#a9a9a9">
                         <CardImage src={Baek} alt="JONGWON BAEK" />
                         <CardTitle>JONGWON BAEK</CardTitle>
                         <CardDescription>korean sweet Gordon ramsay</CardDescription>
                         <ChatButton buttonColor="#d3d3d3" hoverColor="#b0b0b0">Let's chat!</ChatButton>
                     </Card>
+                    </CardWrapper>
                 </CardsContainer>
                 <Footer />
             </MainPageContainer>
