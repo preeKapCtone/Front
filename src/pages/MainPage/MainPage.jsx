@@ -72,8 +72,8 @@ const ChatButton = styled.button`
   padding: 8px;
   border: none;
   border-radius: 5px;
-  background-color: ${props => props.buttonColor};
-  color: white;
+  background-color: white;
+  color: ${props => props.buttonColor};
   font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
@@ -97,7 +97,7 @@ const MainPage = () => {
                             <CardImage src={Frieren} alt="FRIEREN" />
                             <CardTitle>FRIEREN</CardTitle>
                             <CardDescription>The mage who lives 1000 years</CardDescription>
-                            <ChatButton buttonColor="#ff9aff" hoverColor="#e18ee0">Let's chat!</ChatButton>
+                            <ChatButton buttonColor="#ffb6c1" hoverColor="#e18ee0">Let's chat!</ChatButton>
                         </Card>
                     </CardWrapper>
 
@@ -106,7 +106,7 @@ const MainPage = () => {
                         <CardImage src={Tuttle} alt="BOOGIE" />
                         <CardTitle>BOOGIE</CardTitle>
                         <CardDescription>the lovely turtle who lives in our univ</CardDescription>
-                        <ChatButton buttonColor="#b5a4ff" hoverColor="#7e8bd1">Let's chat!</ChatButton>
+                        <ChatButton buttonColor="#8f9dff" hoverColor="#7e8bd1">Let's chat!</ChatButton>
                     </Card>
                     </CardWrapper>
 
@@ -115,7 +115,7 @@ const MainPage = () => {
                         <CardImage src={Baek} alt="JONGWON BAEK" />
                         <CardTitle>JONGWON BAEK</CardTitle>
                         <CardDescription>korean sweet Gordon ramsay</CardDescription>
-                        <ChatButton buttonColor="#d3d3d3" hoverColor="#b0b0b0">Let's chat!</ChatButton>
+                        <ChatButton buttonColor="#a9a9a9" hoverColor="#b0b0b0">Let's chat!</ChatButton>
                     </Card>
                     </CardWrapper>
                 </CardsContainer>
