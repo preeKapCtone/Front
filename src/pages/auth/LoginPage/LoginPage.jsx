@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import characterImage from '../../../assets/images/characters/상상부기.png';
+import useForm from '../../../hooks/useForm';
+import { validateLogin } from '../../../utils/validate'; 
 
 // 전체 페이지를 감싸는 컨테이너
 const LoginPageContainer = styled.div`
@@ -193,14 +195,25 @@ const CheckIcon = styled.div`
 // 메인 컴포넌트
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const initialValues = { id: '', password: '' };
 
-  const handleLogin = () => {
-    if (id === 'admin' && password === '1234') {
-      navigate('/main');
-    } else {
-      alert('Invalid credentials');
+  const { values, errors, handleChange, handleSubmit: handleSubmitForm } = useForm(
+    initialValues,
+    validateLogin
+  );
+
+  // 로그인 처리 함수 추가
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validateLogin(values);
+    if (Object.keys(validationErrors).length === 0) {
+      // admin/1234 체크
+      if (values.id === 'admin' && values.password === '1234') {
+        console.log('로그인 성공!');
+        navigate('/main');
+      } else {
+        alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+      }
     }
   };
 
@@ -224,20 +237,24 @@ const LoginPage = () => {
             <HelloText>HELLO,</HelloText>
             <StrangerText>STRANGER</StrangerText>
           </TitleContainer>
-          <Input 
-            type="text" 
-            placeholder="id" 
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+          <Input
+            type="text"
+            name="id"
+            placeholder="id"
+            value={values.id}
+            onChange={handleChange}
           />
-          <Input 
-            type="password" 
-            placeholder="password" 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+          {errors.id && <ErrorMessage>{errors.id}</ErrorMessage>}
+          <Input
+            type="password"
+            name="password"
+            placeholder="password"
+            value={values.password}
+            onChange={handleChange}
           />
+          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
           <ButtonContainer>
-            <Button onClick={handleLogin}>
+            <Button onClick={handleSubmit}>
               LOG IN
               <CheckIcon>
                 <svg viewBox="0 0 24 24">
