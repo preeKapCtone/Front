@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import characterImage from '../../../assets/images/characters/상상부기.png';
+import characterImage from '../../../assets/images/characters/turttle.png';
 import useForm from '../../../hooks/useForm';
 import { validateLogin } from '../../../utils/validate'; 
+
 
 // 전체 페이지를 감싸는 컨테이너
 const LoginPageContainer = styled.div`
