@@ -1,0 +1,150 @@
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import './App.css';
+
+function App() {
+    const [message, setMessage] = useState('');
+    const [responses, setResponses] = useState([]);
+    const [selectedAssistantID, setSelectedAssistantID] = useState('');
+    const assistantOptions = [
+        { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
+        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "SangSangBoogie" }
+    ];
+
+    const sendMessage = async () => {
+        if (message.trim() === '' || selectedAssistantID === '') return;
+
+        try {
+            // 서버에 메시지 전송
+            const response = await axios.post(
+                'http://127.0.0.1:8000/api/posts', // FastAPI 서버 주소
+                {
+                    user_message: message,
+                    assistant_id: selectedAssistantID
+                }
+            );
+
+            // 응답 메시지
+            const botResponse = response.data.response;
+
+            // 대화 기록 업데이트
+            setResponses([...responses, { user: message, bot: botResponse }]);
+            setMessage('');  // 입력창 초기화
+
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
+    };
+
+    return (
+        <div className="chat-container">
+            <h1>Chat with Assistant</h1>
+            <select onChange={(e) => setSelectedAssistantID(e.target.value)} className="assistant-select">
+                <option value="">Select an Assistant</option>
+                {assistantOptions.map((option) => (
+                    <option key={option.id} value={option.id}>
+                        {option.name}
+                    </option>
+                ))}
+            </select>
+            <div className="chat-box">
+                {responses.map((res, index) => (
+                    <div key={index} className="chat-message">
+                        <div className="user-message">{res.user}</div>
+                        <div className="bot-message">{res.bot}</div>
+                    </div>
+                ))}
+            </div>
+            <div className="input-container">
+                <input
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Type your message"
+                    className="message-input"
+                />
+                <button onClick={sendMessage} className="send-button">Send</button>
+            </div>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+// import React, { useState } from 'react';
+// import axios from 'axios';
+// import './App.css';
+
+// function App() {
+//     const [message, setMessage] = useState('');
+//     const [responses, setResponses] = useState([]);
+//     const [selectedAssistantID, setSelectedAssistantID] = useState('');
+//     const assistantOptions = [
+//         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
+//         { id: "asst_67890", name: "Serious Bot" }
+//     ];
+
+//     const sendMessage = async () => {
+//         if (message.trim() === '' || selectedAssistantID === '') return;
+
+//         try {
+//             // 서버에 메시지 전송
+//             const response = await axios.post(
+//                 'http://127.0.0.1:8000/chat', // FastAPI 서버 주소
+//                 {
+//                     user_message: message,
+//                     assistant_id: selectedAssistantID
+//                 }
+//             );
+
+//             // 응답 메시지와 응답 시간을 기록
+//             const botResponse = response.data.response;
+//             const responseTime = response.data.response_time.toFixed(2); // 응답 시간을 소수점 2자리로 표시
+//             const formattedBotResponse = `${botResponse}\n(응답 시간: ${responseTime}초)`;
+
+//             // 대화 기록 업데이트
+//             setResponses([...responses, { user: message, bot: formattedBotResponse }]);
+//             setMessage('');  // 입력창 초기화
+
+//         } catch (error) {
+//             console.error("Error sending message:", error);
+//         }
+//     };
+
+//     return (
+//         <div className="chat-container">
+//             <h1>Chat with Assistant</h1>
+//             <select onChange={(e) => setSelectedAssistantID(e.target.value)} className="assistant-select">
+//                 <option value="">Select an Assistant</option>
+//                 {assistantOptions.map((option) => (
+//                     <option key={option.id} value={option.id}>
+//                         {option.name}
+//                     </option>
+//                 ))}
+//             </select>
+//             <div className="chat-box">
+//                 {responses.map((res, index) => (
+//                     <div key={index} className="chat-message">
+//                         <div className="user-message">{res.user}</div>
+//                         <div className="bot-message">{res.bot}</div>
+//                     </div>
+//                 ))}
+//             </div>
+//             <div className="input-container">
+//                 <input
+//                     type="text"
+//                     value={message}
+//                     onChange={(e) => setMessage(e.target.value)}
+//                     placeholder="Type your message"
+//                     className="message-input"
+//                 />
+//                 <button onClick={sendMessage} className="send-button">Send</button>
+//             </div>
+//         </div>
+//     );
+// }
+
+// export default App;
