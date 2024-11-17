@@ -41,7 +41,7 @@ const CardWrapper = styled.div`
     if (props.cardPosition === 'left') return '10%';
     if (props.cardPosition === 'center') return '50%';
     return 'auto';
-}};
+  }};
   right: ${props => (props.cardPosition === 'right' ? '10%' : 'auto')};
 
   /* 확장 방향 설정 */
@@ -49,7 +49,7 @@ const CardWrapper = styled.div`
     if (props.cardPosition === 'left') return 'left center';
     if (props.cardPosition === 'center') return 'center center';
     return 'right center';
-}};
+  }};
   transform: ${props => (props.cardPosition === 'center' ? 'translateX(-50%)' : 'none')};
 
   width: ${props => (props.isExpanded ? '80vw' : '25vw')};
@@ -57,6 +57,14 @@ const CardWrapper = styled.div`
   height: auto;
   max-height: 440px;
   display: ${props => (props.isVisible ? 'block' : 'none')};
+
+  /* 반응형 디자인: 화면이 작아질 때 카드 전체 너비를 차지 */
+  @media (max-width: 768px) {
+    position: static;
+    width: 90%;
+    max-width: 100%;
+    margin: 10px auto;
+  }
 `;
 
 const Card = styled.div`
@@ -69,15 +77,27 @@ const Card = styled.div`
   gap: ${props => (props.isExpanded ? '20px' : '0')}; /* 확장 시 이미지와 설명 사이 간격 */
   max-height: 420px; /* Card의 최대 높이 설정 */
   overflow-y: auto; /* 내용이 많을 경우 스크롤 활성화 */
+
+  /* 반응형 디자인: 화면이 작아질 때 세로 배치 */
+  flex-direction: ${props => (props.isExpanded ? 'row' : 'column')};
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const CardImage = styled.img`
   width: 250px;
-  height: 300px; 
+  height: 300px;
   border-radius: 10px;
   margin-bottom: 10px;
-  object-fit: cover; /* 이미지를 고정된 크기에 맞춰 자름 */
-  transition: none; /* 확대 애니메이션 동안 변동 방지 */
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 200px; /* 모바일에서는 크기 축소 */
+    height: auto;
+  }
 `;
 
 const CardContent = styled.div`
@@ -88,12 +108,25 @@ const CardContent = styled.div`
   opacity: ${props => (props.isExpanded ? 1 : 0)};
   transform: ${props => (props.isExpanded ? 'translateX(0)' : 'translateX(-10px)')};
   transition: opacity 0.3s ease, transform 0.3s ease;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem; /* 작은 화면에서 텍스트 크기 축소 */
+    padding: 10px;
+    text-align: center;
+  }
 `;
 
 const CardLayout = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-direction: ${props => (props.isExpanded ? 'row' : 'column')};
+
+  @media (max-width: 768px) {
+    flex-direction: column; /* 화면이 좁아지면 세로 정렬 */
+    align-items: center;
+  }
 `;
 
 const CardInfo = styled.div`
