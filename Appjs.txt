@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-    const [message, setMessage] = useState('');
+    onst [message, setMessage] = useState('');
     const [responses, setResponses] = useState([]);
     const [selectedAssistantID, setSelectedAssistantID] = useState('');
     const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
@@ -16,7 +16,101 @@ function App() {
         if (message.trim() === '' || selectedAssistantID === '') return;
 
         try {
-            // 서버에 메시지 전송
+            // 서버에 메시지 전송import React, { useState } from 'react';
+                         import axios from 'axios';
+                         import './App.css';
+
+                         function App() {
+                             onst [message, setMessage] = useState('');
+                             const [responses, setResponses] = useState([]);
+                             const [selectedAssistantID, setSelectedAssistantID] = useState('');
+                             const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
+                             const assistantOptions = [
+                                 { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
+                                 { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "SangSangBoogie" }
+                             ];
+
+                             const sendMessage = async () => {
+                                 if (message.trim() === '' || selectedAssistantID === '') return;
+
+                                 try {
+                                     // 서버에 메시지 전송
+                                     const response = await axios.post(
+                                         'http://127.0.0.1:8000/api/posts',
+                                         {
+                                             user_message: message,
+                                             assistant_id: selectedAssistantID
+                                         }
+                                     );
+
+                                     // 응답 메시지와 감정 상태
+                                     const botResponse = response.data.response;
+                                     const botSentiment = response.data.sentiment; // 감정 상태
+
+                                     // 대화 기록 업데이트
+                                     setResponses([
+                                         ...responses,
+                                         { user: message, bot: botResponse, sentiment: botSentiment }
+                                     ]);
+                                     setMessage('');  // 입력창 초기화
+
+                                 } catch (error) {
+                                     console.error("Error sending message:", error);
+                                     alert("메시지 전송 중 오류가 발생했습니다. 다시 시도해 주세요.");
+                                 }
+                             };
+
+                             // 어시스턴트 선택 시 어시스턴트 이름도 업데이트
+                             const handleAssistantChange = (e) => {
+                                 const selectedID = e.target.value;
+                                 setSelectedAssistantID(selectedID);
+                                 const selectedAssistant = assistantOptions.find(option => option.id === selectedID);
+                                 setAssistantName(selectedAssistant ? selectedAssistant.name : '');
+                             };
+
+                             return (
+                                 <div className="chat-container">
+                                     <h1>Chat with Assistant</h1>
+                                     <h2>Selected Assistant: {assistantName}</h2>
+                                     <select onChange={handleAssistantChange} className="assistant-select">
+                                         <option value="">Select an Assistant</option>
+                                         {assistantOptions.map((option) => (
+                                             <option key={option.id} value={option.id}>
+                                                 {option.name}
+                                             </option>
+                                         ))}
+                                     </select>
+                                     <div className="chat-box">
+                                         {responses.map((res, index) => (
+                                             <div key={index} className={`chat-message ${res.sentiment}`}>
+                                                 <div className="user-message">{res.user}</div>
+                                                 <div className="bot-message">
+                                                     {res.bot}
+                                                     <span className="sentiment-icon">
+                                                         {res.sentiment === 'positive' && '😊'}
+                                                         {res.sentiment === 'negative' && '😡'}
+                                                         {res.sentiment === 'neutral' && '😐'}
+                                                     </span>
+                                                 </div>
+                                             </div>
+                                         ))}
+                                     </div>
+                                     <div className="input-container">
+                                         <input
+                                             type="text"
+                                             value={message}
+                                             onChange={(e) => setMessage(e.target.value)}
+                                             placeholder="Type your message"
+                                             className="message-input"
+                                         />
+                                         <button onClick={sendMessage} className="send-button">Send</button>
+                                     </div>
+                                 </div>
+                             );
+                         }
+
+                         export default App;
+
             const response = await axios.post(
                 'http://127.0.0.1:8000/api/posts',
                 {

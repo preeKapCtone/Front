@@ -1,95 +1,90 @@
-import React from "react";
-import styled from "styled-components";
+import React, {useEffect, useState} from "react";
 import InputSection from "./InputSection.jsx";
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 50%;
-  height: 80%;
-  background-color: ${(props) => props.theme.backgroundColor}; /* 전체 배경 색상 */
-  padding: 20px;
-  border-radius: 25px;
-`;
-
-const ChatContainer = styled.div`
-  width: 700px;
-  height: 600px;
-  background-color: ${(props) => props.theme.chatBubbleColor};
-  border-radius: 15px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-`;
-
-const NavigationBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 700px; /* NavigationBar도 채팅창과 같은 넓이 */
-  margin-bottom: 10px; /* NavigationBar와 ChatContainer 사이 여백 */
-`;
-
-const HomeButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: ${(props) => props.theme.textColor};
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: ${(props) => props.theme.textColor};
-`;
-
-const Header = styled.div`
-  text-align: center;
-  padding: 10px 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${(props) => props.theme.textColor};
-`;
-
-const ChatContent = styled.div`
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px 20px;
-  background-color: ${(props) => props.theme.backgroundColor};
-`;
-
-const Message = styled.div`
-  display: flex;
-  justify-content: ${(props) => (props.isUser ? "flex-end" : "flex-start")};
-  margin: 10px 0;
-
-  & > div {
-    max-width: 70%;
-    background-color: ${(props) => (props.isUser ? "#e0e0e0" : "#fff")};
-    color: ${(props) => (props.isUser ? "#000" : "#333")};
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-  }
-`;
-
-const Footer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: ${(props) => props.theme.chatBubbleColor};
-`;
+import {
+    ChatContainer,
+    ChatContent,
+    CloseButton,
+    HomeButton,
+    NavigationBar,
+    Wrapper,
+    Header,
+    Footer,
+    Message
+} from "./ChatBoxCss.jsx";
+import axios from "axios";
 
 
-const ChatBox = ({ theme, messages, onClose }) => {
+export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
+    const [message, setMessage] = useState(''); // 입력 상태
+    const [messages, setMessages] = useState([]); // 화면에 표시될 메시지
+    const [responses, setResponses] = useState([]); // 서버로 전송될 데이터
+    const [selectedAssistantID, setSelectedAssistantID] = useState('');
+    const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
+    const assistantOptions = [
+        { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
+        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "Boogie" },
+        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek"}
+    ];
+
+    useEffect(() => {
+        if (name) {
+            const selectedAssistant = assistantOptions.find(option => option.name === name);
+            if (selectedAssistant) {
+                setSelectedAssistantID(selectedAssistant.id);
+                setAssistantName(selectedAssistant.name);
+            } else {
+                console.error(`Assistant with name "${name}" not found.`);
+            }
+        }
+    }, [name]);
+
+    useEffect(() => {
+        setMessages(initialMessages || []); // messages 값을 업데이트
+    }, [initialMessages]);
+
+    const sendMessage = async () => {
+        if (message.trim() === '' || selectedAssistantID === '') return;
+
+        try {
+            // 서버에 메시지 전송
+            const response = await axios.post(
+                'http://127.0.0.1:8000/api/posts',
+                {
+                    user_message: message,
+                    assistant_id: selectedAssistantID
+                }, {
+                    headers: {
+                        // 필요한 최소 헤더만 포함
+                        'Content-Type': 'application/json',
+                    }
+                }
+            );
+
+            // 응답 메시지와 감정 상태
+            const botResponse = response.data.response;
+            const botSentiment = response.data.sentiment; // 감정 상태
+
+            // 대화 기록 업데이트
+            setResponses([
+                ...responses,
+                { title: assistantName, body: message }, // 유저 메시지
+                { title: assistantName, body: botResponse } // 봇 응답
+            ]);
+
+            setMessages([
+                ...messages,
+                { postId: messages.length + 1, title: assistantName, body: message, authorNickname: "You", isUser: true },
+                { postId: messages.length + 2, title: assistantName, body: botResponse, authorNickname: assistantName, isUser: false }
+            ]);
+
+            setMessage('');  // 입력창 초기화
+
+        } catch (error) {
+            console.error("Error sending message:", error);
+            alert("메시지 전송 중 오류가 발생했습니다. 다시 시도해 주세요.");
+        }
+    };
+
     return (
         <Wrapper theme={theme}>
             {/* 바깥에 전체를 감싸는 컴포넌트 */}
@@ -115,7 +110,12 @@ const ChatBox = ({ theme, messages, onClose }) => {
                     ))}
                 </ChatContent>
                 <Footer>
-                    <InputSection/>
+                    <InputSection
+                        theme={theme}
+                        message={message}
+                        setMessage={setMessage}
+                        onSend={sendMessage}
+                    />
                 </Footer>
             </ChatContainer>
         </Wrapper>

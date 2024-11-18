@@ -66,8 +66,9 @@ const ChatPage = () => {
         <PageContainer>
             <ChatBox
                 theme={theme}
-                messages={messages}
+                initialMessages={messages}
                 onClose={() => navigate("/")}
+                name={character}
             />
         </PageContainer>
     );

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const InputWrapper = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   background-color: ${(props) => props.theme.chatBubbleColor};
@@ -13,7 +13,7 @@ const InputWrapper = styled.div`
   position: relative; /* 아이콘 배치 조정 */
 `;
 
-const InputField = styled.input`
+export const InputField = styled.input`
   flex: 1;
   border: none;
   outline: none;
@@ -23,7 +23,7 @@ const InputField = styled.input`
   padding: 0 10px;
 `;
 
-const SendButton = styled.button`
+export const SendButton = styled.button`
   width: 30px;
   height: 30px;
   background-color: white;
@@ -44,10 +44,21 @@ const SendButton = styled.button`
   right: 10px; /* 오른쪽에 배치 */
 `;
 
-const InputSection = ({ theme, onSend }) => {
+export const InputSection = ({ theme, message, setMessage, onSend }) => {
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            onSend(); // Enter 키를 눌렀을 때 메시지 전송
+        }
+    };
+
     return (
         <InputWrapper theme={theme}>
-            <InputField placeholder="Type your message..." />
+            <InputField
+                value={message} // message 상태와 동기화
+                onChange={(e) => setMessage(e.target.value)} // 입력값을 message로 업데이트
+                placeholder="Type your message..."
+                onKeyPress={handleKeyPress} // Enter 키 이벤트 처리
+            />
             <SendButton theme={theme} onClick={onSend}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path d="M2 21l21-9-21-9v7l15 2-15 2z" />
