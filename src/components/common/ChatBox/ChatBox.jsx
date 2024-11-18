@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import InputSection from "./InputSection.jsx";
 import {
     ChatContainer,
@@ -20,30 +20,38 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const [responses, setResponses] = useState([]); // 서버로 전송될 데이터
     const [selectedAssistantID, setSelectedAssistantID] = useState('');
     const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
+    const chatContentRef = useRef(null);
+
     const assistantOptions = [
         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
         { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "Boogie" },
         { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek"}
     ];
 
-    useEffect(() => {
-        if (name) {
-            const selectedAssistant = assistantOptions.find(option => option.name === name);
-            if (selectedAssistant) {
-                setSelectedAssistantID(selectedAssistant.id);
-                setAssistantName(selectedAssistant.name);
-            } else {
-                console.error(`Assistant with name "${name}" not found.`);
-            }
-        }
-    }, [name]);
-
-    useEffect(() => {
-        setMessages(initialMessages || []); // messages 값을 업데이트
-    }, [initialMessages]);
-
     const sendMessage = async () => {
         if (message.trim() === '' || selectedAssistantID === '') return;
+
+        // 사용자의 메시지를 먼저 추가
+        const userMessage = {
+            postId: messages.length + 1,
+            title: assistantName,
+            body: message,
+            authorNickname: "You",
+            isUser: true,
+        };
+        setMessages([...messages, userMessage]);
+
+        // 상대방이 입력 중 상태 추가
+        const typingMessage = {
+            postId: messages.length + 2,
+            title: assistantName,
+            body: "상대방이 입력 중...",
+            authorNickname: assistantName,
+            isUser: false,
+        };
+        setMessages((prevMessages) => [...prevMessages, typingMessage]);
+
+        setMessage('');
 
         try {
             // 서버에 메시지 전송
@@ -71,11 +79,15 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 { title: assistantName, body: botResponse } // 봇 응답
             ]);
 
-            setMessages([
-                ...messages,
-                { postId: messages.length + 1, title: assistantName, body: message, authorNickname: "You", isUser: true },
-                { postId: messages.length + 2, title: assistantName, body: botResponse, authorNickname: assistantName, isUser: false }
-            ]);
+            console.log(botSentiment);
+
+            setMessages((prevMessages) =>
+                prevMessages.map((msg) =>
+                    msg.postId === typingMessage.postId
+                        ? { ...msg, body: botResponse } // "입력 중" 메시지를 실제 응답으로 교체
+                        : msg
+                )
+            );
 
             setMessage('');  // 입력창 초기화
 
@@ -84,6 +96,29 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             alert("메시지 전송 중 오류가 발생했습니다. 다시 시도해 주세요.");
         }
     };
+
+    useEffect(() => {
+        if (name) {
+            const selectedAssistant = assistantOptions.find(option => option.name === name);
+            if (selectedAssistant) {
+                setSelectedAssistantID(selectedAssistant.id);
+                setAssistantName(selectedAssistant.name);
+            } else {
+                console.error(`Assistant with name "${name}" not found.`);
+            }
+        }
+    }, [name]);
+
+    useEffect(() => {
+        setMessages(initialMessages || []); // messages 값을 업데이트
+    }, [initialMessages]);
+
+    useEffect(() => {
+        // 새 메시지가 추가될 때 스크롤을 맨 아래로 이동
+        if (chatContentRef.current) {
+            chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     return (
         <Wrapper theme={theme}>
@@ -99,7 +134,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             {/* ChatContainer가 들어가는 영역 */}
             <ChatContainer theme={theme}>
                 <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
-                <ChatContent>
+                <ChatContent ref={chatContentRef}>
                     {messages.map((message, index) => (
                         <Message key={index} isUser={message.isUser}>
                             <div>
