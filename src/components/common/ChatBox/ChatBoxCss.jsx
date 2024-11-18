@@ -17,7 +17,7 @@ export const ChatContainer = styled.div`
   height: 600px;
   background-color: ${(props) => props.theme.chatBubbleColor};
   border-radius: 15px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  //box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -29,7 +29,7 @@ export const NavigationBar = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 700px; /* NavigationBar도 채팅창과 같은 넓이 */
-  margin-bottom: 10px; /* NavigationBar와 ChatContainer 사이 여백 */
+  margin: 10px 0;
 `;
 
 export const HomeButton = styled.button`
@@ -38,6 +38,20 @@ export const HomeButton = styled.button`
   font-size: 1.5rem;
   cursor: pointer;
   color: ${(props) => props.theme.textColor};
+`;
+
+export const InteractionButton = styled.button`
+  background-color: ${(props) => props.theme.chatBubbleColor};
+  border: none;
+  color: ${(props) => props.theme.buttonText || "#FFF"};
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.buttonHoverBackground || "#0056b3"};
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -70,11 +84,11 @@ export const Message = styled.div`
 
   & > div {
     max-width: 70%;
-    background-color: ${(props) => (props.isUser ? "#e0e0e0" : "#fff")};
+    //background-color: ${(props) => (props.isUser ? "#e0e0e0" : "#fff")};
     color: ${(props) => (props.isUser ? "#000" : "#333")};
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 0.9rem;
   }
 `;

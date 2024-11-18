@@ -9,9 +9,14 @@ import {
     Wrapper,
     Header,
     Footer,
-    Message
+    Message, InteractionButton
 } from "./ChatBoxCss.jsx";
 import axios from "axios";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import Tuttle from "../../../assets/images/characters/Turttle.png";
+import Frieren from "../../../assets/images/characters/Frieren.png";
+import {useNavigate} from "react-router-dom";
 
 
 export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
@@ -21,6 +26,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const [selectedAssistantID, setSelectedAssistantID] = useState('');
     const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
     const chatContentRef = useRef(null);
+    const navigate = useNavigate();
 
     const assistantOptions = [
         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
@@ -125,21 +131,75 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             {/* 바깥에 전체를 감싸는 컴포넌트 */}
             <NavigationBar theme={theme}>
                 <HomeButton theme={theme} onClick={onClose}>
-                    &#8592; Home
+                    <FontAwesomeIcon icon={faHome} />
                 </HomeButton>
-                <CloseButton theme={theme} onClick={onClose}>
-                    X
-                </CloseButton>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <InteractionButton theme={theme} onClick={() => navigate("/interaction")}>
+                        상호작용
+                    </InteractionButton>
+                    <CloseButton theme={theme} onClick={onClose}>
+                        X
+                    </CloseButton>
+                </div>
             </NavigationBar>
             {/* ChatContainer가 들어가는 영역 */}
             <ChatContainer theme={theme}>
-                <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
+                <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}
+                </Header>
                 <ChatContent ref={chatContentRef}>
                     {messages.map((message, index) => (
-                        <Message key={index} isUser={message.isUser}>
-                            <div>
-                                <strong>{message.authorNickname}: </strong>
-                                {message.body}
+                        <Message theme={theme} key={index} isUser={message.isUser}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: message.isUser ? 'flex-end' : 'flex-start',
+                                    alignItems: 'center',
+                                    margin: '10px 0',
+                                }}
+                            >
+                                {/* 상대방 메시지: 이미지 왼쪽 */}
+                                {!message.isUser && (
+                                    <img
+                                        src={Tuttle} // 상상부기 이미지
+                                        alt="avatar"
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            borderRadius: '50%', // 원형 이미지
+                                            marginRight: '10px', // 박스와 이미지 간격
+                                            border: '1px solid white'
+                                        }}
+                                    />
+                                )}
+
+                                {/* 메시지 텍스트 */}
+                                <div
+                                    style={{
+                                        backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
+                                        padding: '10px 15px',
+                                        borderRadius: '10px',
+                                        maxWidth: '70%',
+                                        textAlign: 'left',
+                                        border: '1px solid white'
+                                    }}
+                                >
+                                    {message.body}
+                                </div>
+
+                                {/* 유저 메시지: 이미지 오른쪽 */}
+                                {message.isUser && (
+                                    <img
+                                        src={Frieren} // 유저 이미지 또는 다른 기본 이미지
+                                        alt="avatar"
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            borderRadius: '50%', // 원형 이미지
+                                            marginLeft: '10px', // 박스와 이미지 간격
+                                            border: '1px solid white'
+                                        }}
+                                    />
+                                )}
                             </div>
                         </Message>
                     ))}
@@ -153,6 +213,11 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                     />
                 </Footer>
             </ChatContainer>
+            <NavigationBar theme={theme}>
+                <HomeButton theme={theme} onClick={onClose}>
+                    &#8592;
+                </HomeButton>
+            </NavigationBar>
         </Wrapper>
     );
 };
