@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/auth/LoginPage/LoginPage';
 import SignupPage from './pages/auth/SignupPage/SignupPage';
 import MainPage from './pages/MainPage/MainPage';
+import ChatPage from "./pages/ChatPage/ChatPage.jsx";
+
 
 const App = () => {
   return (
@@ -12,6 +14,7 @@ const App = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/main" element={<MainPage />} />
+      <Route path="/chat/:character" element={<ChatPage />} />
     </Routes>
   );
 };

@@ -7,6 +7,7 @@ import Tuttle from '../../assets/images/characters/Turttle.png';
 
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header.jsx";
+import {useNavigate} from "react-router-dom";
 
 const MainPageContainer = styled.div`
   display: flex;
@@ -167,9 +168,14 @@ const ChatButton = styled.button`
 
 const MainPage = () => {
     const [expandedCard, setExpandedCard] = useState(null);
+    const navigate = useNavigate();
 
     const handleExpand = (card) => {
         setExpandedCard(expandedCard === card ? null : card); // 클릭 시 같은 카드면 축소, 아니면 확장
+    };
+
+    const handleNavigate = (character) => {
+        navigate(`/chat/${character}`); // 캐릭터에 해당하는 URL로 이동
     };
 
     return (
@@ -192,7 +198,7 @@ const MainPage = () => {
                                     <CardImage src={Frieren} alt="FRIEREN" />
                                     <CardTitle>FRIEREN</CardTitle>
                                     <CardDescription>The mage who lives 1000 years</CardDescription>
-                                    <ChatButton buttonColor="#ffb6c1" hoverColor="#e18ee0">
+                                    <ChatButton buttonColor="#ffb6c1" hoverColor="#e18ee0" onClick={() => handleNavigate('Frieren')} >
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
@@ -219,7 +225,7 @@ const MainPage = () => {
                                     <CardImage src={Tuttle} alt="BOOGIE" />
                                     <CardTitle>BOOGIE</CardTitle>
                                     <CardDescription>The lovely turtle who lives in our univ</CardDescription>
-                                    <ChatButton buttonColor="#8f9dff" hoverColor="#7e8bd1">
+                                    <ChatButton buttonColor="#8f9dff" hoverColor="#7e8bd1" onClick={() => handleNavigate('Boogie')}>
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
@@ -246,7 +252,7 @@ const MainPage = () => {
                                     <CardImage src={Baek} alt="JONGWON BAEK" />
                                     <CardTitle>JONGWON BAEK</CardTitle>
                                     <CardDescription>Korean sweet Gordon Ramsay</CardDescription>
-                                    <ChatButton buttonColor="#a9a9a9" hoverColor="#b0b0b0">
+                                    <ChatButton buttonColor="#a9a9a9" hoverColor="#b0b0b0"  onClick={() => handleNavigate('JongwonBaek')}>
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>

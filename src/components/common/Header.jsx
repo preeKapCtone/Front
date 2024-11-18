@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div`
   background-color: #8f9dff;
   padding: 10px;
   display: flex;
@@ -10,7 +10,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
 `;
 
-const HeaderContainer = styled.header`
+export const HeaderContainer = styled.header`
   width: 95%;
   max-width: 1200px;
   padding: 20px;
@@ -24,24 +24,24 @@ const HeaderContainer = styled.header`
   align-items: center;
 `;
 
-const Logo = styled.div`
+export const Logo = styled.div`
   font-size: 2rem;
   font-weight: bold;
 `;
 
-const UserInfo = styled.div`
+export const UserInfo = styled.div`
   display: flex;
   align-items: center;
   font-size: 1rem;
 `;
 
-const UserProfile = styled.div`
+export const UserProfile = styled.div`
   margin-left: 10px;
   font-weight: normal;
   color: white;
 `;
 
-const Header = () => {
+export const Header = () => {
     return (
         <HeaderWrapper>
             <HeaderContainer>
