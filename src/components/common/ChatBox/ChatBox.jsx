@@ -134,7 +134,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                     <FontAwesomeIcon icon={faHome} />
                 </HomeButton>
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <InteractionButton theme={theme} onClick={() => navigate("/interaction")}>
+                    <InteractionButton theme={theme} onClick={() => navigate(`/interaction/${name}`)}>
                         상호작용
                     </InteractionButton>
                     <CloseButton theme={theme} onClick={onClose}>
