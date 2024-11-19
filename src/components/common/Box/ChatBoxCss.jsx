@@ -1,11 +1,36 @@
 import styled from "styled-components";
 
+// HEX -> RGB 변환 + 어둡게 처리 함수
+function darkenRgb(hex, factor) {
+    const rgb = hexToRgb(hex); // HEX를 RGB로 변환
+    const [r, g, b] = rgb.split(",").map((value) => parseInt(value.trim(), 10)); // RGB 값 추출
+
+    // RGB 값 계산: 각 값을 factor만큼 줄임
+    const darken = (value) => Math.max(0, Math.min(255, Math.floor(value * (1 - factor))));
+    const newR = darken(r);
+    const newG = darken(g);
+    const newB = darken(b);
+
+    return `rgb(${newR}, ${newG}, ${newB})`;
+}
+
+// HEX -> RGB 변환 함수
+function hexToRgb(hex) {
+    const strippedHex = hex.replace("#", "");
+    const bigint = parseInt(strippedHex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return `${r}, ${g}, ${b}`;
+}
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 50%;
+  width: 54%;
   height: 80%;
   background-color: ${(props) => props.theme.backgroundColor}; /* 전체 배경 색상 */
   padding: 20px;
@@ -13,7 +38,7 @@ export const Wrapper = styled.div`
 `;
 
 export const ChatContainer = styled.div`
-  width: 700px;
+  width: 100%;
   height: 600px;
   background-color: ${(props) => props.theme.chatBubbleColor};
   border-radius: 15px;
@@ -28,7 +53,7 @@ export const NavigationBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 700px; /* NavigationBar도 채팅창과 같은 넓이 */
+  width: 100%; /* NavigationBar도 채팅창과 같은 넓이 */
   margin: 10px 0;
 `;
 
@@ -50,7 +75,13 @@ export const InteractionButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHoverBackground || "#0056b3"};
+    background-color: ${(props) =>
+            darkenRgb(props.theme.chatBubbleColor || "#FFF", 0.1)}; /* 10% 어둡게 */
+  }
+
+  &:active {
+    background-color: ${(props) =>
+            darkenRgb(props.theme.chatBubbleColor || "#FFF", 0.2)}; /* 20% 어둡게 */
   }
 `;
 

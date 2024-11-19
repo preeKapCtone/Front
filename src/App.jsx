@@ -4,6 +4,7 @@ import LoginPage from './pages/auth/LoginPage/LoginPage';
 import SignupPage from './pages/auth/SignupPage/SignupPage';
 import MainPage from './pages/MainPage/MainPage';
 import ChatPage from "./pages/ChatPage/ChatPage.jsx";
+import UnityPage from "./pages/UnityPage/UnityPage.jsx";
 
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/main" element={<MainPage />} />
       <Route path="/chat/:character" element={<ChatPage />} />
+      <Route path="/interaction/:character" element={<UnityPage />} />
     </Routes>
   );
 };
