@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+// HEX -> RGB 변환 + 어둡게 처리 함수
+function darkenRgb(hex, factor) {
+    const rgb = hexToRgb(hex); // HEX를 RGB로 변환
+    const [r, g, b] = rgb.split(",").map((value) => parseInt(value.trim(), 10)); // RGB 값 추출
+
+    // RGB 값 계산: 각 값을 factor만큼 줄임
+    const darken = (value) => Math.max(0, Math.min(255, Math.floor(value * (1 - factor))));
+    const newR = darken(r);
+    const newG = darken(g);
+    const newB = darken(b);
+
+    return `rgb(${newR}, ${newG}, ${newB})`;
+}
+
+// HEX -> RGB 변환 함수
+function hexToRgb(hex) {
+    const strippedHex = hex.replace("#", "");
+    const bigint = parseInt(strippedHex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return `${r}, ${g}, ${b}`;
+}
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,7 +75,13 @@ export const InteractionButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHoverBackground || "#0056b3"};
+    background-color: ${(props) =>
+            darkenRgb(props.theme.chatBubbleColor || "#FFF", 0.1)}; /* 10% 어둡게 */
+  }
+
+  &:active {
+    background-color: ${(props) =>
+            darkenRgb(props.theme.chatBubbleColor || "#FFF", 0.2)}; /* 20% 어둡게 */
   }
 `;
 
