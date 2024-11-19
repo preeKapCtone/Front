@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import characterImage from '../../../assets/images/characters/turttle.png';
+import characterImage from '../../../assets/images/characters/Turttle.png';
 import useForm from '../../../hooks/useForm';
 import { validateLogin } from '../../../utils/validate'; 
 
@@ -196,20 +196,20 @@ const CheckIcon = styled.div`
 // 메인 컴포넌트
 const LoginPage = () => {
   const navigate = useNavigate();
-  const initialValues = { id: '', password: '' };
-
+  // id를 username으로 변경
+  const initialValues = { username: '', password: '' };
+ 
   const { values, errors, handleChange, handleSubmit: handleSubmitForm } = useForm(
     initialValues,
     validateLogin
   );
-
-  // 로그인 처리 함수 추가
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validateLogin(values);
     if (Object.keys(validationErrors).length === 0) {
-      // admin/1234 체크
-      if (values.id === 'admin' && values.password === '1234') {
+      // admin/1234 체크도 username으로 수정
+      if (values.username === 'admin' && values.password === '1234') {
         console.log('로그인 성공!');
         navigate('/main');
       } else {
@@ -217,11 +217,11 @@ const LoginPage = () => {
       }
     }
   };
-
+ 
   const handleSignup = () => {
     navigate('/signup');
   };
-
+ 
   return (
     <LoginPageContainer>
       <LeftSection>
@@ -240,16 +240,16 @@ const LoginPage = () => {
           </TitleContainer>
           <Input
             type="text"
-            name="id"
-            placeholder="id"
-            value={values.id}
+            name="username" // id를 username으로 변경
+            placeholder="username" // 플레이스홀더도 변경
+            value={values.username} // value도 username으로 변경
             onChange={handleChange}
           />
-          {errors.id && <ErrorMessage>{errors.id}</ErrorMessage>}
+          {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
           <Input
             type="password"
             name="password"
-            placeholder="password"
+            placeholder="password" 
             value={values.password}
             onChange={handleChange}
           />
@@ -269,6 +269,6 @@ const LoginPage = () => {
       </RightSection>
     </LoginPageContainer>
   );
-};
+ };
 
-export default LoginPage;
+ export default LoginPage;

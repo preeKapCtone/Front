@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import characterImage from '../../../assets/images/characters/turttle.png';
+import characterImage from '../../../assets/images/characters/Turttle.png';
 import useForm from '../../../hooks/useForm';
 import { validateSignup } from '../../../utils/validate';
 
@@ -191,13 +191,14 @@ const CheckIcon = styled.div`
 // 메인 컴포넌트
 const SignupPage = () => {
   const navigate = useNavigate();
-  const initialValues = { id: '', password: '', nickname: '' };
-
+  // id를 username으로 변경
+  const initialValues = { username: '', password: '', nickname: '' };
+ 
   const { values, errors, handleChange, handleSubmit: handleSubmitForm } = useForm(
     initialValues,
     validateSignup
   );
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (handleSubmitForm(e)) {
@@ -206,8 +207,7 @@ const SignupPage = () => {
       navigate('/login');
     }
   };
-
-
+ 
   return (
     <SignupPageContainer>
       <LeftSection>
@@ -226,12 +226,12 @@ const SignupPage = () => {
           </TitleContainer>
           <Input
             type="text"
-            name="id"
-            placeholder="id"
-            value={values.id}
+            name="username"
+            placeholder="username"
+            value={values.username}
             onChange={handleChange}
           />
-          {errors.id && <ErrorMessage>{errors.id}</ErrorMessage>}
+          {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
           <Input
             type="password"
             name="password"
@@ -262,6 +262,6 @@ const SignupPage = () => {
       </RightSection>
     </SignupPageContainer>
   );
-};
+ };
 
 export default SignupPage;

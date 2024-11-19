@@ -1,5 +1,5 @@
-// Header.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const HeaderWrapper = styled.div`
@@ -10,48 +10,12 @@ export const HeaderWrapper = styled.div`
   align-items: center;
 `;
 
-export const HeaderContainer = styled.header`
-  width: 95%;
-  max-width: 1200px;
-  padding: 20px;
-  background-color: #7f8cff;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  border-radius: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const Logo = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-`;
-
-export const UserInfo = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-`;
-
-export const UserProfile = styled.div`
-  margin-left: 10px;
-  font-weight: normal;
-  color: white;
-`;
-
-export const Header = () => {
-    return (
-        <HeaderWrapper>
-            <HeaderContainer>
-                <Logo>sBOOKY</Logo>
-                <UserInfo>
-                    <UserProfile>Hi! 상상부기</UserProfile>
-                </UserInfo>
-            </HeaderContainer>
-        </HeaderWrapper>
-    );
-};
+const Header = () => (
+  <HeaderWrapper>
+    <Link to="/">Home</Link>
+    <Link to="/chat" style={{ marginLeft: '10px' }}>Chat</Link>
+    <Link to="/unity" style={{ marginLeft: '10px' }}>Unity</Link>
+  </HeaderWrapper>
+);
 
 export default Header;
