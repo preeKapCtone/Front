@@ -37,7 +37,7 @@ export const SendButton = styled.button`
   svg {
     width: 15px;
     height: 15px;
-    fill: ${(props) => props.theme.buttonColor}; /* 화살표 색상 */
+    fill: ${(props) => props.theme.chatBubbleColor}; /* 화살표 색상 */
   }
 
   position: absolute;
