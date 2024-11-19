@@ -1,8 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import ChatBox from "../../components/common/ChatBox/ChatBox";
-import UnityBox from "../../components/common/UnityBox/UnityBox.jsx";
+import UnityBox from "../../components/common/Box/UnityBox.jsx";
 
 const themeData = {
     Boogie: {

@@ -10,7 +10,7 @@ import {
     Header,
     Footer,
     Message, InteractionButton
-} from "./ChatBoxCss.jsx";
+} from "./BoxCss.jsx";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';

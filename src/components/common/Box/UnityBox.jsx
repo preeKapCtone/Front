@@ -1,26 +1,25 @@
 import React from "react";
 import {
     ChatContainer,
-    ChatContent,
     CloseButton,
     HomeButton,
     NavigationBar,
     Wrapper,
     Header,
     InteractionButton
-} from "./UnityBoxCss.jsx";
+} from "./BoxCss.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-import Unity, { UnityContext } from "react-unity-webgl";
+import {Unity, useUnityContext} from "react-unity-webgl";
 
 
 export const UnityBox = ({ theme, onClose, name }) => {
 
-    const unityContext = new UnityContext({
-        loaderUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.loader.js",
-        dataUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.data",
-        frameworkUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.framework.js",
-        codeUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.wasm",
+    const { unityProvider } = useUnityContext({
+        loaderUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.loader.js", // Loader 파일 경로
+        dataUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.data",       // Data 파일 경로
+        frameworkUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.framework.js", // Framework 파일 경로
+        codeUrl: "/importInteraction/buildForfrieren/Build/buildForfrieren.wasm",       // WebAssembly 파일 경로
     });
 
 
@@ -45,8 +44,8 @@ export const UnityBox = ({ theme, onClose, name }) => {
                 <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}
                 </Header>
                 <Unity
-                    unityContext={unityContext}
-                    style={{ width: "1500px", height: "800px", border: "2px solid black" }}
+                    unityProvider={unityProvider}
+                    style={{ width: "100%", height: "100vh", border: "2px solid black" }}
                 />
             </ChatContainer>
             <NavigationBar theme={theme}>
