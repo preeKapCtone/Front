@@ -13,17 +13,17 @@ const themeData = {
     },
     Frieren: {
         name: "Frieren",
-        backgroundColor: "#ffe5b4",
+        backgroundColor: "#FFF5FD",
         textColor: "#5a3e36",
         buttonColor: "#ff8c42",
-        chatBubbleColor: "#fff",
+        chatBubbleColor: "#FFC1EF",
     },
     JongwonBaek: {
         name: "Jongwon",
-        backgroundColor: "#cfcfcf",
+        backgroundColor: "#DDDDDD",
         textColor: "#000",
         buttonColor: "#a0a0a0",
-        chatBubbleColor: "#f5f5f5",
+        chatBubbleColor: "#999191",
     },
 };
 

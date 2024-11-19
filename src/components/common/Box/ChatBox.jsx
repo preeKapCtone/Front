@@ -11,12 +11,14 @@ import {
     Footer,
     Message, InteractionButton
 } from "./ChatBoxCss.jsx";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import Tuttle from "../../../assets/images/characters/Turttle.png";
 import Frieren from "../../../assets/images/characters/Frieren.png";
-import {useNavigate} from "react-router-dom";
+import Baek  from "../../../assets/images/characters/Baek.png";
+
 
 
 export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
@@ -29,10 +31,25 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const navigate = useNavigate();
 
     const assistantOptions = [
-        { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren" },
-        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "Boogie" },
-        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek"}
+        { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren", image: Frieren },
+        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "Boogie", image: Tuttle },
+        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek", image: Baek },
     ];
+
+    const [imageSrc, setImageSrc] = useState(Frieren); // 현재 캐릭터 이미지
+
+    useEffect(() => {
+        if (name) {
+            const selectedAssistant = assistantOptions.find((option) => option.name === name);
+            if (selectedAssistant) {
+                setSelectedAssistantID(selectedAssistant.id);
+                setAssistantName(selectedAssistant.name);
+                setImageSrc(selectedAssistant.image); // 캐릭터 이미지 설정
+            } else {
+                console.error(`Assistant with name "${name}" not found.`);
+            }
+        }
+    }, [name]);
 
     const sendMessage = async () => {
         if (message.trim() === '' || selectedAssistantID === '') return;
@@ -104,18 +121,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     };
 
     useEffect(() => {
-        if (name) {
-            const selectedAssistant = assistantOptions.find(option => option.name === name);
-            if (selectedAssistant) {
-                setSelectedAssistantID(selectedAssistant.id);
-                setAssistantName(selectedAssistant.name);
-            } else {
-                console.error(`Assistant with name "${name}" not found.`);
-            }
-        }
-    }, [name]);
-
-    useEffect(() => {
         setMessages(initialMessages || []); // messages 값을 업데이트
     }, [initialMessages]);
 
@@ -160,7 +165,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                 {/* 상대방 메시지: 이미지 왼쪽 */}
                                 {!message.isUser && (
                                     <img
-                                        src={Tuttle} // 상상부기 이미지
+                                        src={imageSrc} // 상상부기 이미지
                                         alt="avatar"
                                         style={{
                                             width: '40px',
