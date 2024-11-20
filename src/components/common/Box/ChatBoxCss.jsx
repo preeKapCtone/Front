@@ -29,7 +29,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 54%;
   height: 80%;
   background-color: ${(props) => props.theme.backgroundColor}; /* 전체 배경 색상 */
@@ -47,6 +47,12 @@ export const ChatContainer = styled.div`
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  /* 스크롤바 완전히 숨기기 */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 `;
 
 export const NavigationBar = styled.div`

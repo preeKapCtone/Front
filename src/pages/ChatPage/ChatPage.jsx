@@ -4,11 +4,12 @@ import ChatBox from "../../components/common/Box/ChatBox.jsx";
 import {characterColors, themeData} from "../../components/common/Box/theme.jsx";
 import styled from "styled-components";
 
+
 const PageContainer = styled.div`
   display: flex;
   justify-content: center; /* 가로 중앙 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
-  height: 98vh; /* 전체 뷰 높이를 차지 */
+  height: 100vh; /* 전체 뷰 높이를 차지 */
   background-color: ${(props) => props.bgColor || "#FFFFFF"}; /* 동적 배경색 */
   box-sizing: border-box; /* 패딩 포함한 정렬 */
 `;
@@ -44,7 +45,7 @@ const ChatPage = () => {
             <ChatBox
                 theme={theme}
                 initialMessages={messages}
-                onClose={() => navigate("/")}
+                onClose={() => navigate("/main")}
                 name={character}
             />
         </PageContainer>

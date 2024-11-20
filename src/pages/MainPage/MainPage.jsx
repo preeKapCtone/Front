@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import GlobalStyles from '../../styles/globalStyles';
 import Frieren from '../../assets/images/characters/Frieren.png';
 import Baek from '../../assets/images/characters/Baek.png';
 import Tuttle from '../../assets/images/characters/Turttle.png';
@@ -8,6 +7,7 @@ import Tuttle from '../../assets/images/characters/Turttle.png';
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header.jsx";
 import {useNavigate} from "react-router-dom";
+import CustomTooltip from "../../components/CustomTooltip.jsx";
 
 const MainPageContainer = styled.div`
   display: flex;
@@ -143,7 +143,7 @@ const CardTitle = styled.h2`
 `;
 
 const CardDescription = styled.p`
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 5px 0;
   color: #f0f0f0;
 `;
@@ -174,13 +174,16 @@ const MainPage = () => {
         setExpandedCard(expandedCard === card ? null : card); // 클릭 시 같은 카드면 축소, 아니면 확장
     };
 
-    const handleNavigate = (character) => {
+    const handleNavigateToChat = (character) => {
         navigate(`/chat/${character}`); // 캐릭터에 해당하는 URL로 이동
+    };
+
+    const handleNavigateToInteraction = (character) => {
+        navigate(`/interaction/${character}`); // 캐릭터에 해당하는 URL로 이동
     };
 
     return (
         <>
-            <GlobalStyles />
             <MainPageContainer>
                 <Header />
                 <CardsContainer>
@@ -195,10 +198,12 @@ const MainPage = () => {
                         <Card bgColor="#ffb6c1">
                             <CardLayout isExpanded={expandedCard === 'frieren'}>
                                 <CardInfo>
-                                    <CardImage src={Frieren} alt="FRIEREN" />
+                                    <CustomTooltip text="Click to interact with Frieren">
+                                        <CardImage src={Frieren} alt="FRIEREN" onClick={() => handleNavigateToInteraction('Frieren')}/>
+                                    </CustomTooltip>
                                     <CardTitle>FRIEREN</CardTitle>
                                     <CardDescription>The mage who lives 1000 years</CardDescription>
-                                    <ChatButton buttonColor="#ffb6c1" hoverColor="#e18ee0" onClick={() => handleNavigate('Frieren')} >
+                                    <ChatButton buttonColor="#ffb6c1" hoverColor="#e18ee0" onClick={() => handleNavigateToChat('Frieren')} >
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
@@ -222,10 +227,12 @@ const MainPage = () => {
                         <Card bgColor="#8f9dff">
                             <CardLayout isExpanded={expandedCard === 'boogie'}>
                                 <CardInfo>
-                                    <CardImage src={Tuttle} alt="BOOGIE" />
+                                    <CustomTooltip text="Click to interact with Boogie">
+                                        <CardImage src={Tuttle} alt="BOOGIE" onClick={() => handleNavigateToInteraction('Boogie')}/>
+                                    </CustomTooltip>
                                     <CardTitle>BOOGIE</CardTitle>
-                                    <CardDescription>The lovely turtle who lives in our univ</CardDescription>
-                                    <ChatButton buttonColor="#8f9dff" hoverColor="#7e8bd1" onClick={() => handleNavigate('Boogie')}>
+                                    <CardDescription>lovely turtle who lives in our hansung</CardDescription>
+                                    <ChatButton buttonColor="#8f9dff" hoverColor="#7e8bd1" onClick={() => handleNavigateToChat('Boogie')}>
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
@@ -249,10 +256,12 @@ const MainPage = () => {
                         <Card bgColor="#a9a9a9">
                             <CardLayout isExpanded={expandedCard === 'baek'}>
                                 <CardInfo>
-                                    <CardImage src={Baek} alt="JONGWON BAEK" />
+                                    <CustomTooltip text="Click to interact with Baek Jong-won">
+                                        <CardImage src={Baek} alt="JONGWON BAEK" onClick={() => handleNavigateToInteraction('JongwonBaek')}/>
+                                    </CustomTooltip>
                                     <CardTitle>JONGWON BAEK</CardTitle>
                                     <CardDescription>Korean sweet Gordon Ramsay</CardDescription>
-                                    <ChatButton buttonColor="#a9a9a9" hoverColor="#b0b0b0"  onClick={() => handleNavigate('JongwonBaek')}>
+                                    <ChatButton buttonColor="#a9a9a9" hoverColor="#b0b0b0"  onClick={() => handleNavigateToChat('JongwonBaek')}>
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>

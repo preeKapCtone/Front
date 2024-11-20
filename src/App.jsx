@@ -7,12 +7,12 @@ import MyProfilePage from './pages/MyProfilePage/MyProfilePage';
 import ChatPage from "./pages/ChatPage/ChatPage.jsx";
 import UnityPage from "./pages/UnityPage/UnityPage.jsx";
 import LogoutPage from './pages/LogoutPage/LogoutPage';
-import GlobalStyle from './styles/globalStyles';
+import GlobalStyles from "./styles/globalStyles.js";
 
 const App = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyles/>
       <Routes>
         {/* 기본 경로를 로그인 페이지로 리다이렉트 */}
         <Route path="/" element={<Navigate to="/login" replace />} />
