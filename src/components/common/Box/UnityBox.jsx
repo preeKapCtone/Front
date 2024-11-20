@@ -10,9 +10,12 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import FrierenLoader from "../../Unity/FrierenLoader.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 export const UnityBox = ({ theme, onClose, name }) => {
+    const navigate = useNavigate();
+
     return (
         <Wrapper theme={theme}>
             {/* 바깥에 전체를 감싸는 컴포넌트 */}
