@@ -36,6 +36,8 @@ const UserInfo = styled.div`
 `;
 
 const UserProfile = styled.div`
+ display: flex;
+ align-items: center;
  margin-left: 10px;
  font-weight: normal;
  color: white;
@@ -44,24 +46,48 @@ const UserProfile = styled.div`
 const ProfileLink = styled(Link)`
  text-decoration: none;
  color: white;
+ display: flex;
+ align-items: center;
+ gap: 10px;
  &:hover {
    text-decoration: underline;
  }
 `;
 
+const ProfileImage = styled.img`
+ width: 40px;
+ height: 40px;
+ border-radius: 50%;
+ object-fit: cover;
+ background-color: white;
+ border: 2px solid white;
+`;
+
 const Header = () => {
-   return (
-       <HeaderWrapper>
-           <HeaderContainer>
-               <Logo>sBOOKY</Logo>
-               <UserInfo>
-                   <UserProfile>
-                       Hi! <ProfileLink to="/profile">상상부기</ProfileLink>
-                   </UserProfile>
-               </UserInfo>
-           </HeaderContainer>
-       </HeaderWrapper>
-   );
-};
+    const nickname = localStorage.getItem('nickname');
+    const userimage = localStorage.getItem('userimage');
+    const defaultImage = '/src/assets/images/profileimage/pro16.png';
+ 
+    return (
+        <HeaderWrapper>
+            <HeaderContainer>
+                <Logo>sBOOKY</Logo>
+                <UserInfo>
+                    <UserProfile>
+                        Hi! <ProfileLink to="/profile">
+                            {nickname || '사용자'}
+                            <ProfileImage 
+                                src={userimage && userimage !== '0' 
+                                    ? `/src/assets/images/profileimage/pro${userimage}.png` 
+                                    : defaultImage}
+                                alt="Profile" 
+                            />
+                        </ProfileLink>
+                    </UserProfile>
+                </UserInfo>
+            </HeaderContainer>
+        </HeaderWrapper>
+    );
+ };
 
 export default Header;

@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import characterImage from '../../../assets/images/characters/Turttle.png';
 import useForm from '../../../hooks/useForm';
 import { validateSignup } from '../../../utils/validate';
+import { signup } from '../../../utils/axios';
 
-// ErrorMessage 컴포넌트 추가
 const ErrorMessage = styled.span`
   color: red;
   font-size: 12px;
@@ -13,13 +13,11 @@ const ErrorMessage = styled.span`
   margin-bottom: 10px;
 `;
 
-// 전체 페이지를 감싸는 컨테이너
 const SignupPageContainer = styled.div`
   display: flex;
   height: 100vh;
 `;
 
-// 왼쪽 섹션 - 캐릭터와 슬로건이 있는 부분
 const LeftSection = styled.div`
  flex: 1;
  display: flex;
@@ -32,7 +30,6 @@ const LeftSection = styled.div`
  padding-top: 14rem;
 `;
 
-// 슬로건 텍스트 스타일
 const Subtitle = styled.p`
  font-size: 3rem;
  text-align: center;
@@ -40,7 +37,6 @@ const Subtitle = styled.p`
  font-weight: bold;
 `;
 
-// 캐릭터 이미지를 감싸는 가장 바깥쪽 컨테이너
 const CharacterImageContainer = styled.div`
  position: relative;
  width: 350px;        
@@ -64,7 +60,6 @@ const CharacterImageContainer = styled.div`
  }
 `;
 
-// 실제 캐릭터가 들어가는 내부 컨테이너
 const CharacterCard = styled.div`
   position: relative;
   width: calc(100% - 30px);
@@ -78,7 +73,6 @@ const CharacterCard = styled.div`
   z-index: 1;
 `;
 
-// 캐릭터 이미지
 const CharacterImage = styled.img`
   width: 100%;
   height: 100%;
@@ -86,7 +80,6 @@ const CharacterImage = styled.img`
   margin-bottom: -200px;
 `;
 
-// 오른쪽 섹션 - 회원가입 폼이 있는 부분
 const RightSection = styled.div`
   flex: 1;
   display: flex;
@@ -96,7 +89,6 @@ const RightSection = styled.div`
   background-color: white;
 `;
 
-// 회원가입 폼을 감싸는 컨테이너
 const SignupBox = styled.div`
   width: 320px;
   display: flex;
@@ -104,26 +96,22 @@ const SignupBox = styled.div`
   align-items: flex-start;
 `;
 
-// 타이틀 "HELLO, STRANGER" 컨테이너
 const TitleContainer = styled.div`
   margin-bottom: 40px;
   text-align: left;
 `;
 
-// HELLO, 텍스트
 const HelloText = styled.h1`
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 8px;
 `;
 
-// STRANGER 텍스트
 const StrangerText = styled.h1`
   font-size: 32px;
   font-weight: bold;
 `;
 
-// 입력 필드 (id, password, nickname)
 const Input = styled.input`
   width: 320px;
   height: 70px;
@@ -142,7 +130,6 @@ const Input = styled.input`
   }
 `;
 
-// 버튼을 감싸는 컨테이너
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
@@ -150,7 +137,6 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-// 회원가입 버튼
 const Button = styled.button`
   width: 158px;
   height: 52px;
@@ -170,7 +156,6 @@ const Button = styled.button`
   }
 `;
 
-// 체크 아이콘 컨테이너
 const CheckIcon = styled.div`
   margin-left: 8px;
   width: 20px;
@@ -188,10 +173,8 @@ const CheckIcon = styled.div`
   }
 `;
 
-// 메인 컴포넌트
 const SignupPage = () => {
   const navigate = useNavigate();
-  // id를 username으로 변경
   const initialValues = { username: '', password: '', nickname: '' };
  
   const { values, errors, handleChange, handleSubmit: handleSubmitForm } = useForm(
@@ -199,14 +182,25 @@ const SignupPage = () => {
     validateSignup
   );
  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleSubmitForm(e)) {
-      console.log('회원가입 성공!');
-      alert('회원가입이 완료되었습니다.');
-      navigate('/login');
+      try {
+        const response = await signup(
+          values.username,
+          values.password,
+          values.nickname
+        );
+        if (response.message === '회원가입 성공') {
+          alert('회원가입이 완료되었습니다.');
+          navigate('/login');
+        }
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
+  
  
   return (
     <SignupPageContainer>
@@ -262,6 +256,6 @@ const SignupPage = () => {
       </RightSection>
     </SignupPageContainer>
   );
- };
+};
 
 export default SignupPage;

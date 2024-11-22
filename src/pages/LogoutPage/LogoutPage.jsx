@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import characterImage from '../../assets/images/characters/Turttle.png';
 
+
 // 전체 페이지를 감싸는 컨테이너
 const LogoutPageContainer = styled.div`
   display: flex;

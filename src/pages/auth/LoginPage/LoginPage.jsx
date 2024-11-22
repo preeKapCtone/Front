@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import characterImage from '../../../assets/images/characters/Turttle.png';
 import useForm from '../../../hooks/useForm';
-import { validateLogin } from '../../../utils/validate'; 
-
+import { validateLogin } from '../../../utils/validate';
+import { login } from '../../../utils/axios';
 
 // 전체 페이지를 감싸는 컨테이너
 const LoginPageContainer = styled.div`
@@ -12,7 +12,6 @@ const LoginPageContainer = styled.div`
   height: 100vh;
 `;
 
-// 왼쪽 섹션 - 캐릭터와 슬로건이 있는 부분
 const LeftSection = styled.div`
  flex: 1;
  display: flex;
@@ -22,28 +21,26 @@ const LeftSection = styled.div`
  background-color: #9198ff;
  color: white;
  padding: 3rem;
- padding-top: 14rem;  // 상단 여백 증가
+ padding-top: 14rem;
 `;
 
-// 슬로건 텍스트 스타일
 const Subtitle = styled.p`
  font-size: 3rem;
  text-align: center;
- margin-bottom: 3rem;  // 여백 더 증가
+ margin-bottom: 3rem;
  font-weight: bold;
 `;
 
-// 캐릭터 이미지를 감싸는 가장 바깥쪽 컨테이너
 const CharacterImageContainer = styled.div`
  position: relative;
  width: 350px;        
- height: 650px;       // 높이 증가
+ height: 650px;
  background-color: white;
  border-radius: 40px;
  display: flex;
  align-items: center;
  justify-content: center;
- margin-top: 2rem;    // 상단 여백 추가
+ margin-top: 2rem;
 
  &::before {
    content: '';
@@ -57,10 +54,9 @@ const CharacterImageContainer = styled.div`
  }
 `;
 
-// 실제 캐릭터가 들어가는 내부 컨테이너
 const CharacterCard = styled.div`
   position: relative;
-  width: calc(100% - 30px);  // 여백 조정
+  width: calc(100% - 30px);
   height: calc(100% - 30px);
   background-color: #9198ff;
   border-radius: 35px;
@@ -71,15 +67,13 @@ const CharacterCard = styled.div`
   z-index: 1;
 `;
 
-// 캐릭터 이미지
 const CharacterImage = styled.img`
-  width: 100%;          // 이미지 크기 조정
+  width: 100%;
   height: 100%;
   object-fit: contain;
-  margin-bottom: -200px;  // 위치 약간 조정
+  margin-bottom: -200px;
 `;
 
-// 오른쪽 섹션 - 로그인 폼이 있는 부분
 const RightSection = styled.div`
   flex: 1;
   display: flex;
@@ -89,7 +83,6 @@ const RightSection = styled.div`
   background-color: white;
 `;
 
-// 로그인 폼을 감싸는 컨테이너
 const LoginBox = styled.div`
   width: 320px;
   display: flex;
@@ -97,26 +90,22 @@ const LoginBox = styled.div`
   align-items: flex-start;
 `;
 
-// 타이틀 "HELLO, STRANGER" 컨테이너
 const TitleContainer = styled.div`
   margin-bottom: 40px;
   text-align: left;
 `;
 
-// HELLO, 텍스트
 const HelloText = styled.h1`
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 8px;
 `;
 
-// STRANGER 텍스트
 const StrangerText = styled.h1`
   font-size: 32px;
   font-weight: bold;
 `;
 
-// 입력 필드 (id, password)
 const Input = styled.input`
   width: 320px;
   height: 70px;
@@ -135,7 +124,6 @@ const Input = styled.input`
   }
 `;
 
-// 버튼과 링크를 감싸는 컨테이너
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
@@ -145,7 +133,6 @@ const ButtonContainer = styled.div`
   margin-left: 15px;
 `;
 
-// 로그인 버튼
 const Button = styled.button`
   width: 158px;
   height: 52px;
@@ -166,7 +153,6 @@ const Button = styled.button`
   }
 `;
 
-// CREATE ACCOUNT 링크
 const CreateAccount = styled.p`
   color: #8180c9;
   cursor: pointer;
@@ -175,7 +161,6 @@ const CreateAccount = styled.p`
   margin-top: 10px;
 `;
 
-// 체크 아이콘 컨테이너
 const CheckIcon = styled.div`
   margin-left: 8px;
   width: 20px;
@@ -193,10 +178,15 @@ const CheckIcon = styled.div`
   }
 `;
 
-// 메인 컴포넌트
+const ErrorMessage = styled.span`
+  color: red;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 10px;
+`;
+
 const LoginPage = () => {
   const navigate = useNavigate();
-  // id를 username으로 변경
   const initialValues = { username: '', password: '' };
  
   const { values, errors, handleChange, handleSubmit: handleSubmitForm } = useForm(
@@ -204,15 +194,17 @@ const LoginPage = () => {
     validateLogin
   );
  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateLogin(values);
     if (Object.keys(validationErrors).length === 0) {
-      // admin/1234 체크도 username으로 수정
-      if (values.username === 'admin' && values.password === '1234') {
-        console.log('로그인 성공!');
+      try {
+        const response = await login(values.username, values.password);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('username', values.username);
         navigate('/main');
-      } else {
+      } catch (error) {
+        console.error('Login error:', error);
         alert('아이디 또는 비밀번호가 올바르지 않습니다.');
       }
     }
@@ -240,9 +232,9 @@ const LoginPage = () => {
           </TitleContainer>
           <Input
             type="text"
-            name="username" // id를 username으로 변경
-            placeholder="username" // 플레이스홀더도 변경
-            value={values.username} // value도 username으로 변경
+            name="username"
+            placeholder="username"
+            value={values.username}
             onChange={handleChange}
           />
           {errors.username && <ErrorMessage>{errors.username}</ErrorMessage>}
@@ -269,6 +261,6 @@ const LoginPage = () => {
       </RightSection>
     </LoginPageContainer>
   );
- };
+};
 
- export default LoginPage;
+export default LoginPage;
