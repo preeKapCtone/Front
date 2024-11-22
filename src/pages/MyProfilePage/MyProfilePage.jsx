@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../../components/common/Header';
-import { updateProfile } from '../../utils/axios';
+import instance, { updateProfile } from '../../utils/axios';
 
 const ProfileContainer = styled.div`
   width: 100%;
@@ -167,6 +167,12 @@ const MyProfilePage = () => {
     nickname: localStorage.getItem('nickname') || ''
   });
 
+  // profileImages를 컴포넌트 내부로 이동
+  const profileImages = Array.from({ length: 16 }, (_, i) => ({
+    id: String(i + 1), // id를 문자열로 변경
+    path: `/src/assets/images/profileimage/pro${i + 1}.png`
+  }));
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -176,27 +182,31 @@ const MyProfilePage = () => {
       return;
     }
 
-    const savedUsername = localStorage.getItem('username');
-    const savedNickname = localStorage.getItem('nickname');
-    const savedUserimage = localStorage.getItem('userimage');
+    // 컴포넌트 마운트 시 프로필 정보 가져오기
+    const fetchProfile = async () => {
+      try {
+        const formData = new FormData();
+        formData.append('nickname', localStorage.getItem('nickname') || '');
+        formData.append('userimage', localStorage.getItem('userimage') || '0');
+        const response = await instance.put('/api/users/me', formData);
+        
+        if (response.data && response.data['nickname, userimage']) {
+          const [nickname, userimage] = response.data['nickname, userimage'].split(', ');
+          setFormData(prev => ({
+            ...prev,
+            nickname: nickname
+          }));
+          setUserimage(userimage);
+          localStorage.setItem('nickname', nickname);
+          localStorage.setItem('userimage', userimage);
+        }
+      } catch (error) {
+        console.error('Failed to fetch profile:', error);
+      }
+    };
 
-    if (savedUsername) {
-      setFormData(prev => ({
-        ...prev,
-        username: savedUsername,
-        nickname: savedNickname || ''
-      }));
-    }
-
-    if (savedUserimage) {
-      setUserimage(savedUserimage);
-    }
+    fetchProfile();
   }, [navigate]);
-
-  const profileImages = Array.from({ length: 16 }, (_, i) => ({
-    id: i + 1,
-    path: `/src/assets/images/profileimage/pro${i + 1}.png`
-  }));
 
   const handleEdit = async () => {
     try {
@@ -260,8 +270,7 @@ const MyProfilePage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.clear();  // 모든 저장된 정보 삭제
-    navigate('/login');
+    navigate('/logout');
   };
 
   return (
@@ -273,8 +282,11 @@ const MyProfilePage = () => {
             <ProfileImageContainer onClick={handleImageClick}>
               {userimage && userimage !== '0' ? (
                 <ProfileImage 
-                  src={profileImages[parseInt(userimage) - 1].path} 
-                  alt="Selected profile" 
+                  src={profileImages[parseInt(userimage) - 1]?.path || '/src/assets/images/profileimage/pro16.png'} 
+                  alt="Selected profile"
+                  onError={(e) => {
+                    e.target.src = '/src/assets/images/profileimage/pro16.png';
+                  }} 
                 />
               ) : (
                 <ProfileImage 
@@ -335,7 +347,13 @@ const MyProfilePage = () => {
               $isSelected={userimage === imageInfo.id}
               onClick={() => handleCharacterSelect(imageInfo)}
             >
-              <img src={imageInfo.path} alt={`Profile ${imageInfo.id}`} />
+              <img 
+                src={imageInfo.path} 
+                alt={`Profile ${imageInfo.id}`}
+                onError={(e) => {
+                  e.target.src = '/src/assets/images/profileimage/pro16.png';
+                }}
+              />
             </CharacterOption>
           ))}
         </CharacterSelector>

@@ -3,14 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import characterImage from '../../assets/images/characters/Turttle.png';
 
-
-// 전체 페이지를 감싸는 컨테이너
 const LogoutPageContainer = styled.div`
   display: flex;
   height: 100vh;
 `;
 
-// 왼쪽 섹션 - 캐릭터와 슬로건이 있는 부분
 const LeftSection = styled.div`
   flex: 1;
   display: flex;
@@ -23,7 +20,6 @@ const LeftSection = styled.div`
   padding-top: 14rem;
 `;
 
-// 슬로건 텍스트 스타일
 const Subtitle = styled.p`
   font-size: 3rem;
   text-align: center;
@@ -31,7 +27,6 @@ const Subtitle = styled.p`
   font-weight: bold;
 `;
 
-// 캐릭터 이미지를 감싸는 가장 바깥쪽 컨테이너
 const CharacterImageContainer = styled.div`
   position: relative;
   width: 350px;
@@ -55,7 +50,6 @@ const CharacterImageContainer = styled.div`
   }
 `;
 
-// 실제 캐릭터가 들어가는 내부 컨테이너
 const CharacterCard = styled.div`
   position: relative;
   width: calc(100% - 30px);
@@ -69,7 +63,6 @@ const CharacterCard = styled.div`
   z-index: 1;
 `;
 
-// 캐릭터 이미지
 const CharacterImage = styled.img`
   width: 100%;
   height: 100%;
@@ -77,7 +70,6 @@ const CharacterImage = styled.img`
   margin-bottom: -200px;
 `;
 
-// 오른쪽 섹션 - See you again! 메시지가 있는 부분
 const RightSection = styled.div`
   flex: 1;
   display: flex;
@@ -87,7 +79,6 @@ const RightSection = styled.div`
   background-color: white;
 `;
 
-// 메시지 스타일
 const Message = styled.h1`
   font-size: 48px;
   font-weight: bold;
@@ -110,15 +101,17 @@ const LogoutPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 세션/로컬 스토리지에서 사용자 정보 제거
-    localStorage.removeItem('user');
-    sessionStorage.removeItem('user');
-
-    // 3초 후에 로그인 페이지로 자동 이동
+    // 6초 후에 실행될 로그아웃 처리
     const timer = setTimeout(() => {
+      // localStorage의 모든 항목 제거
+      localStorage.clear();
+      // 세션스토리지의 모든 항목 제거
+      sessionStorage.clear();
+      // 로그인 페이지로 리다이렉트
       navigate('/login');
-    }, 3000);
+    }, 6000); // 6초로 설정
 
+    // 컴포넌트가 언마운트될 때 타이머 정리
     return () => clearTimeout(timer);
   }, [navigate]);
 
