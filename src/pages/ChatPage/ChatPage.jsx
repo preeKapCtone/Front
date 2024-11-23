@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ChatBox from "../../components/common/Box/ChatBox.jsx";
-import {characterColors, themeData} from "../../components/common/Box/theme.jsx";
+import { characterColors, themeData } from "../../components/common/Box/theme.jsx";
 import styled from "styled-components";
-
+import axios from "axios";
 
 const PageContainer = styled.div`
   display: flex;
@@ -18,23 +18,53 @@ const ChatPage = () => {
     const { character } = useParams();
     const navigate = useNavigate();
 
-    // API 데이터 시뮬레이션
-    const apiMessages = [
-        { postId: 1, title: "Boogie", body: "부기는 거부기입니다.", authorNickname: "raymond" },
-        { postId: 2, title: "Boogie", body: "안녕안녕 거부기부기?", authorNickname: "raymond" },
-        { postId: 3, title: "Boogie", body: "학교 편의점에서 핫바랑 쫄병스낵 사먹었어.", authorNickname: "raymond" },
-        { postId: 4, title: "Boogie", body: "오늘은 날씨가 좋네!", authorNickname: "raymond" },
-    ];
-
-    // 홀수는 유저, 짝수는 상대
-    const messages = apiMessages.map((msg) => ({
-        isUser: msg.postId % 2 === 1, // 홀수는 true (유저 메시지)
-        authorNickname: msg.postId % 2 === 1 ? "You" : character,
-        body: msg.body,
-    }));
+    const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const theme = themeData[character] || themeData.default; // 기본 테마 설정
     const bgColor = characterColors[character] || characterColors.default; // 기본 배경색 설정
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const fetchMessages = async () => {
+            console.log("check : ", character, token);
+            try {
+                const response = await axios.get(`http://localhost:8080/api/posts?title=${character}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                const apiMessages = response.data;
+
+                // 메시지 형식 변환
+                const transformedMessages = apiMessages.map((msg) => ({
+                    isUser: msg.postId % 2 === 1, // 홀수는 유저 메시지
+                    authorNickname: msg.postId % 2 === 1 ? "You" : character,
+                    body: msg.body,
+                }));
+
+                setMessages(transformedMessages);
+            } catch (err) {
+                console.error("Failed to fetch character data.", err);
+                setError("메시지를 가져오는 데 실패했습니다.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMessages();
+    }, [character]);
+
+    console.log(messages);
+
+    if (loading) {
+        return <div>로딩 중...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
     if (!theme) {
         return <div>존재하지 않는 캐릭터입니다.</div>;

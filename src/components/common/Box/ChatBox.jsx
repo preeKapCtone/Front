@@ -125,6 +125,10 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     }, [initialMessages]);
 
     useEffect(() => {
+        console.log("responses : ", responses);
+    }, [responses]);
+
+    useEffect(() => {
         // 새 메시지가 추가될 때 스크롤을 맨 아래로 이동
         if (chatContentRef.current) {
             chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
