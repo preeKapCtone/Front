@@ -2,13 +2,11 @@ import axios from 'axios';
 
 const instance = axios.create();
 
-// 하나의 인터셉터만 사용
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      // 모든 요청에 대해 multipart/form-data 사용
       config.headers['Content-Type'] = 'multipart/form-data';
     }
     return config;
@@ -23,25 +21,13 @@ export const login = async (username, password) => {
     formData.append('password', password);
     
     const response = await instance.post('/api/login', formData);
+    
+    // 로그인 응답에서 받은 모든 정보를 저장
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
-    
-    // 로그인 성공 후 프로필 정보 가져오기 위해 빈 요청 보내기
-    try {
-      const formData = new FormData();
-      formData.append('nickname', ''); // 빈 값이라도 폼데이터 필요
-      formData.append('userimage', '0');
-      const profileResponse = await instance.put('/api/users/me', formData);
-      
-      if (profileResponse.data && profileResponse.data['nickname, userimage']) {
-        const [nickname, userimage] = profileResponse.data['nickname, userimage'].split(', ');
-        localStorage.setItem('nickname', nickname);
-        localStorage.setItem('userimage', userimage);
-      }
-    } catch (error) {
-      console.error('Failed to fetch initial profile:', error);
-    }
+    localStorage.setItem('nickname', response.data.nickname);
+    localStorage.setItem('userimage', response.data.userimage);
     
     return response.data;
   } catch (error) {
@@ -49,6 +35,7 @@ export const login = async (username, password) => {
   }
 };
 
+// 나머지 코드는 동일하게 유지
 export const signup = async (username, password, nickname) => {
   try {
     const formData = new FormData();
@@ -58,9 +45,10 @@ export const signup = async (username, password, nickname) => {
     formData.append('userimage', '0');
     
     const response = await instance.post('/api/signup', formData);
-    // 회원가입 성공 시 nickname과 userimage 저장
-    if (response.data.nickname) {
-      localStorage.setItem('nickname', response.data.nickname);
+    
+    if (response.data.message === '회원가입 성공') {
+      // 회원가입 성공 시 nickname 저장
+      localStorage.setItem('nickname', nickname);
       localStorage.setItem('userimage', '0');
     }
     return response.data;
@@ -76,18 +64,25 @@ export const signup = async (username, password, nickname) => {
 
 export const updateProfile = async (nickname, userimage) => {
   try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('인증 토큰이 없습니다. 다시 로그인해주세요.');
+    }
+
     const formData = new FormData();
     formData.append('nickname', nickname);
     formData.append('userimage', userimage?.toString() || '0');
     
     const response = await instance.put('/api/users/me', formData);
     if (response.data.message === '프로필 수정 성공') {
-      const [newNickname, newUserimage] = response.data['nickname, userimage'].split(', ');
-      localStorage.setItem('nickname', newNickname);
-      localStorage.setItem('userimage', newUserimage);
+      localStorage.setItem('nickname', response.data.nickname);
+      localStorage.setItem('userimage', response.data.userimage);
     }
     return response.data;
   } catch (error) {
+    if (error.response?.status === 403) {
+      throw new Error('접근 권한이 없습니다. 다시 로그인해주세요.');
+    }
     throw error;
   }
 };

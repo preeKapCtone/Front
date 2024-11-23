@@ -181,7 +181,7 @@ const MyProfilePage = () => {
       navigate('/login');
       return;
     }
-
+  
     // 컴포넌트 마운트 시 프로필 정보 가져오기
     const fetchProfile = async () => {
       try {
@@ -190,21 +190,23 @@ const MyProfilePage = () => {
         formData.append('userimage', localStorage.getItem('userimage') || '0');
         const response = await instance.put('/api/users/me', formData);
         
-        if (response.data && response.data['nickname, userimage']) {
-          const [nickname, userimage] = response.data['nickname, userimage'].split(', ');
+        if (response.data) {
+          const nickname = response.data.nickname;
+          const userimage = response.data.userimage;
+          
           setFormData(prev => ({
             ...prev,
             nickname: nickname
           }));
-          setUserimage(userimage);
+          setUserimage(String(userimage)); // userimage를 문자열로 변환
           localStorage.setItem('nickname', nickname);
-          localStorage.setItem('userimage', userimage);
+          localStorage.setItem('userimage', String(userimage));
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error);
       }
     };
-
+  
     fetchProfile();
   }, [navigate]);
 
@@ -212,14 +214,17 @@ const MyProfilePage = () => {
     try {
       const response = await updateProfile(formData.nickname, userimage);
       if (response.message === '프로필 수정 성공') {
-        const [newNickname, newUserimage] = response['nickname, userimage'].split(', ');
+        // 분리된 문자열로 받는 대신 직접 값을 사용
+        const newNickname = response.nickname;
+        const newUserimage = response.userimage;
+        
         setFormData(prev => ({
           ...prev,
           nickname: newNickname
         }));
-        setUserimage(newUserimage);
+        setUserimage(String(newUserimage)); // userimage를 문자열로 변환
         localStorage.setItem('nickname', newNickname);
-        localStorage.setItem('userimage', newUserimage);
+        localStorage.setItem('userimage', String(newUserimage));
         alert('프로필이 성공적으로 수정되었습니다.');
       }
     } catch (error) {
@@ -235,14 +240,17 @@ const MyProfilePage = () => {
     try {
       const response = await updateProfile(formData.nickname, imageInfo.id);
       if (response.message === '프로필 수정 성공') {
-        const [newNickname, newUserimage] = response['nickname, userimage'].split(', ');
-        setUserimage(newUserimage);
+        // 분리된 문자열로 받는 대신 직접 값을 사용
+        const newNickname = response.nickname;
+        const newUserimage = response.userimage;
+        
+        setUserimage(String(newUserimage)); // userimage를 문자열로 변환
         setFormData(prev => ({
           ...prev,
           nickname: newNickname
         }));
         localStorage.setItem('nickname', newNickname);
-        localStorage.setItem('userimage', newUserimage);
+        localStorage.setItem('userimage', String(newUserimage));
         setShowCharacters(false);
       }
     } catch (error) {
