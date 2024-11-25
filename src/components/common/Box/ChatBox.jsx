@@ -39,20 +39,13 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek", image: Baek },
     ];
 
-    const [imageSrc, setImageSrc] = useState(Frieren); // 현재 캐릭터 이미지
+    const sentimentMap = {
+        "긍정적": `/src/assets/images/characters/emotions/${name}_happy.png`,
+        "부정적": `/src/assets/images/characters/emotions/${name}_sad.png`,
+        "중립적": `/src/assets/images/characters/emotions/${name}_neutral.png`,
+    };
 
-    useEffect(() => {
-        if (name) {
-            const selectedAssistant = assistantOptions.find((option) => option.name === name);
-            if (selectedAssistant) {
-                setSelectedAssistantID(selectedAssistant.id);
-                setAssistantName(selectedAssistant.name);
-                setImageSrc(selectedAssistant.image); // 캐릭터 이미지 설정
-            } else {
-                console.error(`Assistant with name "${name}" not found.`);
-            }
-        }
-    }, [name]);
+    const [imageSrc, setImageSrc] = useState(Frieren); // 현재 캐릭터 이미지
 
     const sendMessage = async () => {
         if (message.trim() === '' || selectedAssistantID === '') return;
@@ -64,6 +57,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             body: message,
             authorNickname: "You",
             isUser: true,
+            image: null,
         };
         setMessages([...messages, userMessage]);
 
@@ -74,6 +68,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             body: "상대방이 입력 중...",
             authorNickname: assistantName,
             isUser: false,
+            image: null,
         };
         setMessages((prevMessages) => [...prevMessages, typingMessage]);
 
@@ -105,17 +100,24 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 { title: assistantName, body: botResponse } // 봇 응답
             ]);
 
-            console.log(botSentiment);
-
+            // "입력 중" 메시지를 실제 봇 응답으로 교체하고 이미지 추가
             setMessages((prevMessages) =>
                 prevMessages.map((msg) =>
                     msg.postId === typingMessage.postId
-                        ? { ...msg, body: botResponse } // "입력 중" 메시지를 실제 응답으로 교체
+                        ? {
+                            ...msg,
+                            body: botResponse,
+                            image: sentimentMap[botSentiment],
+                        }
                         : msg
                 )
             );
 
             setMessage('');  // 입력창 초기화
+
+            console.log("Bot Sentiment:", botSentiment);
+            console.log("Image Path:", sentimentMap[botSentiment]);
+            console.log("Messages: ", messages);
 
         } catch (error) {
             console.error("Error sending message:", error);
@@ -168,6 +170,19 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         }
     }, [messages]);
 
+    useEffect(() => {
+        if (name) {
+            const selectedAssistant = assistantOptions.find((option) => option.name === name);
+            if (selectedAssistant) {
+                setSelectedAssistantID(selectedAssistant.id);
+                setAssistantName(selectedAssistant.name);
+                setImageSrc(selectedAssistant.image); // 캐릭터 이미지 설정
+            } else {
+                console.error(`Assistant with name "${name}" not found.`);
+            }
+        }
+    }, [name]);
+
     return (
         <Wrapper theme={theme}>
             {/* 바깥에 전체를 감싸는 컴포넌트 */}
@@ -205,7 +220,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                 {/* 상대방 메시지: 이미지 왼쪽 */}
                                 {!message.isUser && (
                                     <img
-                                        src={imageSrc} // 상상부기 이미지
+                                        src={imageSrc}
                                         alt="avatar"
                                         style={{
                                             width: '40px',
@@ -218,17 +233,33 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                 )}
 
                                 {/* 메시지 텍스트 */}
-                                <div
-                                    style={{
-                                        backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
-                                        padding: '10px 15px',
-                                        borderRadius: '10px',
-                                        maxWidth: '70%',
-                                        textAlign: 'left',
-                                        border: '1px solid white'
-                                    }}
-                                >
-                                    {message.body}
+                                <div>
+                                    <div
+                                        style={{
+                                            backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
+                                            padding: '10px 15px',
+                                            borderRadius: '10px',
+                                            maxWidth: '70%',
+                                            textAlign: 'left',
+                                            border: '1px solid white'
+                                        }}
+                                    >
+                                        {message.body}
+                                    </div>
+                                    {message.image && (
+                                        <div style={{ textAlign: "center", margin: "10px 0" }}>
+                                            <img
+                                                src={message.image}
+                                                alt="emotion indicator"
+                                                style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    borderRadius: "10px",
+                                                    border: "1px solid #ccc",
+                                                }}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* 유저 메시지: 이미지 오른쪽 */}
