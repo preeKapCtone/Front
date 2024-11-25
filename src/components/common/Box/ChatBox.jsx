@@ -30,6 +30,8 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
     const chatContentRef = useRef(null);
     const navigate = useNavigate();
+    const userimage = localStorage.getItem('userimage');
+    const defaultImage = '/src/assets/images/profileimage/pro16.png';
 
     const assistantOptions = [
         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren", image: Frieren },
@@ -232,7 +234,9 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                 {/* 유저 메시지: 이미지 오른쪽 */}
                                 {message.isUser && (
                                     <img
-                                        src={Frieren} // 유저 이미지 또는 다른 기본 이미지
+                                        src={userimage && userimage !== '0'
+                                            ? `/src/assets/images/profileimage/pro${userimage}.png`
+                                            : defaultImage} // 유저 이미지 또는 다른 기본 이미지
                                         alt="avatar"
                                         style={{
                                             width: '40px',
