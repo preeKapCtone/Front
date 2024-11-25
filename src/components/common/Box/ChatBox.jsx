@@ -123,7 +123,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
 
     // 화면을 벗어날 때 호출될 함수
     const handleExit = async () => {
-        if (responses === []) {
+        if (responses == []) {
             return;
         }
         const token = localStorage.getItem('token');
