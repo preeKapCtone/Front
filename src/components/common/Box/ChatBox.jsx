@@ -18,6 +18,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import Tuttle from "../../../assets/images/characters/Turttle.png";
 import Frieren from "../../../assets/images/characters/Frieren.png";
 import Baek  from "../../../assets/images/characters/Baek.png";
+import {usePost} from "../../../hooks/usePost.js";
 
 
 
@@ -120,6 +121,36 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         }
     };
 
+    // 화면을 벗어날 때 호출될 함수
+    const handleExit = async () => {
+        if (responses === []) {
+            return;
+        }
+        const token = localStorage.getItem('token');
+        try {
+            await usePost("api/posts", responses, token);
+            // API 호출
+            console.log("Chat history saved successfully.");
+        } catch (error) {
+            console.error("Error saving chat history:", error);
+        }
+    };
+
+    // 새로고침 방지 및 경고 메시지 표시
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            e.preventDefault();
+            e.returnValue =
+                "새로고침하면 대화 내용이 사라질 수 있습니다. 계속하시겠습니까?";
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, [messages]);
+
     useEffect(() => {
         setMessages(initialMessages || []); // messages 값을 업데이트
     }, [initialMessages]);
@@ -139,14 +170,17 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         <Wrapper theme={theme}>
             {/* 바깥에 전체를 감싸는 컴포넌트 */}
             <NavigationBar theme={theme}>
-                <HomeButton theme={theme} onClick={onClose}>
-                    <FontAwesomeIcon icon={faHome} />
+                <HomeButton theme={theme} onClick={() => {
+                    handleExit().then(r =>  onClose());}}>
+                    <FontAwesomeIcon icon={faHome}/>
                 </HomeButton>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
                     <InteractionButton theme={theme} onClick={() => navigate(`/interaction/${name}`)}>
                         상호작용
                     </InteractionButton>
-                    <CloseButton theme={theme} onClick={onClose}>
+                    <CloseButton theme={theme} onClick={() => {
+                        handleExit().then(r =>  onClose());
+                    }}>
                         X
                     </CloseButton>
                 </div>
@@ -223,7 +257,9 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 </Footer>
             </ChatContainer>
             <NavigationBar theme={theme}>
-                <HomeButton theme={theme} onClick={onClose}>
+                <HomeButton theme={theme} onClick={() => {
+                    handleExit().then(r =>  onClose());
+                }}>
                     &#8592;
                 </HomeButton>
             </NavigationBar>
