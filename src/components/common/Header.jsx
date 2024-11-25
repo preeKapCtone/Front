@@ -84,7 +84,7 @@ const ProfileImage = styled.img`
 `;
 
 const Header = () => {
-    const nickname = localStorage.getItem('nickname');
+    const nickname = localStorage.getItem('username');
     const userimage = localStorage.getItem('userimage');
     const defaultImage = '/src/assets/images/profileimage/pro16.png';
  

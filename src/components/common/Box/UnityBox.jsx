@@ -11,6 +11,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import FrierenLoader from "../../Unity/FrierenLoader.jsx";
 import {useNavigate} from "react-router-dom";
+import BookieLoader from "../../Unity/BookieLoader.jsx";
 
 
 export const UnityBox = ({ theme, onClose, name }) => {
@@ -34,7 +35,7 @@ export const UnityBox = ({ theme, onClose, name }) => {
             </NavigationBar>
             {/* ChatContainer가 들어가는 영역 */}
             <ChatContainer theme={theme}>
-                <FrierenLoader/>
+                <BookieLoader/>
             </ChatContainer>
             <NavigationBar theme={theme}>
                 <HomeButton theme={theme} onClick={onClose}>
