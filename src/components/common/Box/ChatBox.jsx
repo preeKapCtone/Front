@@ -36,7 +36,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const assistantOptions = [
         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren", image: Frieren },
         { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "Boogie", image: Tuttle },
-        { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek", image: Baek },
+        { id: "asst_5FfVKVREEoTvUmc09S0iAcnw", name: "JongwonBaek", image: Baek },
     ];
 
     const sentimentMap = {
