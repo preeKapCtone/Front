@@ -39,16 +39,13 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         { id: "asst_JRVxwfHwUlMHEywxHpSngRMz", name: "JongwonBaek", image: Baek },
     ];
 
-    const sentimentMap = {
-        "긍정적": `/src/assets/images/characters/emotions/${name}_happy.png`,
-        "부정적": `/src/assets/images/characters/emotions/${name}_sad.png`,
-        "중립적": `/src/assets/images/characters/emotions/${name}_neutral.png`,
-    };
-
     const [imageSrc, setImageSrc] = useState(Frieren); // 현재 캐릭터 이미지
 
     const sendMessage = async () => {
         if (message.trim() === '' || selectedAssistantID === '') return;
+
+        // 랜덤 번호 생성
+        const randomNumber = Math.floor(Math.random() * 3) + 1;
 
         // 사용자의 메시지를 먼저 추가
         const userMessage = {
@@ -93,6 +90,13 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             const botResponse = response.data.response;
             const botSentiment = response.data.sentiment; // 감정 상태
 
+            // 감정에 따른 이미지 동적으로 설정
+            const sentimentMap = {
+                긍정적: `/src/assets/images/characters/emotions/${name}_happy${randomNumber}.gif`,
+                부정적: `/src/assets/images/characters/emotions/${name}_angry${randomNumber}.gif`,
+                중립적: `/src/assets/images/characters/emotions/${name}_neutral${randomNumber}.gif`,
+            };
+
             // 대화 기록 업데이트
             setResponses([
                 ...responses,
@@ -114,10 +118,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             );
 
             setMessage('');  // 입력창 초기화
-
-            console.log("Bot Sentiment:", botSentiment);
-            console.log("Image Path:", sentimentMap[botSentiment]);
-            console.log("Messages: ", messages);
 
         } catch (error) {
             console.error("Error sending message:", error);
@@ -188,7 +188,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             {/* 바깥에 전체를 감싸는 컴포넌트 */}
             <NavigationBar theme={theme}>
                 <HomeButton theme={theme} onClick={() => {
-                    handleExit().then(r =>  onClose());}}>
+                    handleExit().then(() =>  onClose());}}>
                     <FontAwesomeIcon icon={faHome}/>
                 </HomeButton>
                 <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
@@ -196,7 +196,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                         상호작용
                     </InteractionButton>
                     <CloseButton theme={theme} onClick={() => {
-                        handleExit().then(r =>  onClose());
+                        handleExit().then(() =>  onClose());
                     }}>
                         X
                     </CloseButton>
@@ -213,7 +213,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                 style={{
                                     display: 'flex',
                                     justifyContent: message.isUser ? 'flex-end' : 'flex-start',
-                                    alignItems: 'center',
+                                    alignItems: 'start',
                                     margin: '10px 0',
                                 }}
                             >
@@ -233,13 +233,19 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                 )}
 
                                 {/* 메시지 텍스트 */}
-                                <div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'flex-start',
+                                        alignItems: 'start'
+                                }}>
                                     <div
                                         style={{
                                             backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
                                             padding: '10px 15px',
                                             borderRadius: '10px',
-                                            maxWidth: '70%',
+                                            maxWidth: '80%',
                                             textAlign: 'left',
                                             border: '1px solid white'
                                         }}
@@ -255,7 +261,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                                     width: "150px",
                                                     height: "150px",
                                                     borderRadius: "10px",
-                                                    border: "1px solid #ccc",
                                                 }}
                                             />
                                         </div>
@@ -293,7 +298,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             </ChatContainer>
             <NavigationBar theme={theme}>
                 <HomeButton theme={theme} onClick={() => {
-                    handleExit().then(r =>  onClose());
+                    handleExit().then(() =>  onClose());
                 }}>
                     &#8592;
                 </HomeButton>
