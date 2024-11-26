@@ -4,6 +4,24 @@ import styled from 'styled-components';
 import Header from '../../components/common/Header';
 import instance, { updateProfile } from '../../utils/axios';
 
+// 프로필 이미지들 import
+import profile1 from '../../assets/images/profileimage/pro1.png';
+import profile2 from '../../assets/images/profileimage/pro2.png';
+import profile3 from '../../assets/images/profileimage/pro3.png';
+import profile4 from '../../assets/images/profileimage/pro4.png';
+import profile5 from '../../assets/images/profileimage/pro5.png';
+import profile6 from '../../assets/images/profileimage/pro6.png';
+import profile7 from '../../assets/images/profileimage/pro7.png';
+import profile8 from '../../assets/images/profileimage/pro8.png';
+import profile9 from '../../assets/images/profileimage/pro9.png';
+import profile10 from '../../assets/images/profileimage/pro10.png';
+import profile11 from '../../assets/images/profileimage/pro11.png';
+import profile12 from '../../assets/images/profileimage/pro12.png';
+import profile13 from '../../assets/images/profileimage/pro13.png';
+import profile14 from '../../assets/images/profileimage/pro14.png';
+import profile15 from '../../assets/images/profileimage/pro15.png';
+import profile16 from '../../assets/images/profileimage/pro16.png';
+
 const ProfileContainer = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -180,10 +198,25 @@ const MyProfilePage = () => {
     nickname: localStorage.getItem('nickname') || ''
   });
 
-  const profileImages = Array.from({ length: 16 }, (_, i) => ({
-    id: String(i + 1),
-    path: `/src/assets/images/profileimage/pro${i + 1}.png`
-  }));
+  // 프로필 이미지 배열 수정
+  const profileImages = [
+    { id: '1', path: profile1 },
+    { id: '2', path: profile2 },
+    { id: '3', path: profile3 },
+    { id: '4', path: profile4 },
+    { id: '5', path: profile5 },
+    { id: '6', path: profile6 },
+    { id: '7', path: profile7 },
+    { id: '8', path: profile8 },
+    { id: '9', path: profile9 },
+    { id: '10', path: profile10 },
+    { id: '11', path: profile11 },
+    { id: '12', path: profile12 },
+    { id: '13', path: profile13 },
+    { id: '14', path: profile14 },
+    { id: '15', path: profile15 },
+    { id: '16', path: profile16 }
+  ];
 
   const navigate = useNavigate();
 
@@ -299,15 +332,15 @@ const MyProfilePage = () => {
             <ProfileImageContainer onClick={handleImageClick}>
               {userimage && userimage !== '0' ? (
                 <ProfileImage 
-                  src={profileImages[parseInt(userimage) - 1]?.path || '/src/assets/images/profileimage/pro16.png'} 
+                  src={profileImages[parseInt(userimage) - 1]?.path || profile16} 
                   alt="Selected profile"
                   onError={(e) => {
-                    e.target.src = '/src/assets/images/profileimage/pro16.png';
+                    e.target.src = profile16;
                   }} 
                 />
               ) : (
                 <ProfileImage 
-                  src="/src/assets/images/profileimage/pro16.png"
+                  src={profile16}
                   alt="Default profile" 
                 />
               )}
@@ -368,7 +401,7 @@ const MyProfilePage = () => {
                 src={imageInfo.path} 
                 alt={`Profile ${imageInfo.id}`}
                 onError={(e) => {
-                  e.target.src = '/src/assets/images/profileimage/pro16.png';
+                  e.target.src = profile16;
                 }}
               />
             </CharacterOption>
