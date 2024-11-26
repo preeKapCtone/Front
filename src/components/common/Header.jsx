@@ -96,7 +96,7 @@ const Header = () => {
                 </LogoLink>
                 <UserInfo>
                     <UserProfile>
-                        <Greeting>Hi!</Greeting>
+                        <Greeting>Welcome!</Greeting>
                         <ProfileLink to="/profile">
                             <span>{nickname || '사용자'}</span>
                             <ProfileImage 
