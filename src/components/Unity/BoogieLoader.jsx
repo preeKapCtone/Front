@@ -30,7 +30,7 @@ const StyledUnity = styled(Unity)`
     height: 100%;
 `;
 
-export const BookieLoader = ({ theme }) => {
+export const BoogieLoader = ({ theme }) => {
     const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
         loaderUrl: "/importInteraction/BG/Build/BG.loader.js",
         dataUrl: "/importInteraction/BG/Build/BG.data",
@@ -56,4 +56,4 @@ export const BookieLoader = ({ theme }) => {
     );
 };
 
-export default BookieLoader;
+export default BoogieLoader;
