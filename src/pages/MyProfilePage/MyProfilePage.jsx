@@ -15,19 +15,24 @@ const ProfileContainer = styled.div`
 const MainContent = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 40px 60px;
+  padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
 `;
 
 const ContentLayout = styled.div`
   display: flex;
   justify-content: center;
-  gap: 120px;
+  gap: 5%;
   margin-bottom: 80px;
   position: relative;
   padding-top: 40px;
+  width: 100%;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const LeftSection = styled.div`
@@ -35,6 +40,7 @@ const LeftSection = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  min-width: 250px;
 `;
 
 const ProfileImageContainer = styled.div`
@@ -80,28 +86,32 @@ const FormSection = styled.div`
   flex-direction: column;
   gap: 35px;
   padding-top: 20px;
+  flex: 1;
+  max-width: 700px;
 `;
 
 const InputGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  width: 100%;
 `;
 
 const Label = styled.label`
-  width: 120px;
+  min-width: 120px;
   color: white;
   font-size: 18px;
 `;
 
 const Input = styled.input`
-  width: 450px;
+  width: 400px;
   height: 55px;
   padding: 0 25px;
   border-radius: 30px;
   border: none;
   background-color: rgba(255, 255, 255, 0.9);
   font-size: 18px;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -118,6 +128,7 @@ const Button = styled.button`
   font-size: 16px;
   min-width: 100px;
   transition: background-color 0.2s;
+  white-space: nowrap;
 
   &:hover {
     background-color: #f0f0f0;
@@ -127,14 +138,15 @@ const Button = styled.button`
 const CharacterSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
-  padding: 37px;
+  padding: 30px;
   display: ${props => props.$isVisible ? 'grid' : 'none'};
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(8, minmax(70px, 1fr));
   gap: 20px;
   width: 100%;
   max-width: 1080px;
   margin: 20px auto 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 `;
 
 const CharacterOption = styled.div`
@@ -168,9 +180,8 @@ const MyProfilePage = () => {
     nickname: localStorage.getItem('nickname') || ''
   });
 
-  // profileImages를 컴포넌트 내부로 이동
   const profileImages = Array.from({ length: 16 }, (_, i) => ({
-    id: String(i + 1), // id를 문자열로 변경
+    id: String(i + 1),
     path: `/src/assets/images/profileimage/pro${i + 1}.png`
   }));
 
@@ -183,7 +194,6 @@ const MyProfilePage = () => {
       return;
     }
   
-    // 컴포넌트 마운트 시 프로필 정보 가져오기
     const fetchProfile = async () => {
       try {
         const formData = new FormData();
@@ -199,7 +209,7 @@ const MyProfilePage = () => {
             ...prev,
             nickname: nickname
           }));
-          setUserimage(String(userimage)); // userimage를 문자열로 변환
+          setUserimage(String(userimage));
           localStorage.setItem('nickname', nickname);
           localStorage.setItem('userimage', String(userimage));
         }
@@ -215,7 +225,6 @@ const MyProfilePage = () => {
     try {
       const response = await updateProfile(formData.nickname, userimage);
       if (response.message === '프로필 수정 성공') {
-        // 분리된 문자열로 받는 대신 직접 값을 사용
         const newNickname = response.nickname;
         const newUserimage = response.userimage;
         
@@ -223,7 +232,7 @@ const MyProfilePage = () => {
           ...prev,
           nickname: newNickname
         }));
-        setUserimage(String(newUserimage)); // userimage를 문자열로 변환
+        setUserimage(String(newUserimage));
         localStorage.setItem('nickname', newNickname);
         localStorage.setItem('userimage', String(newUserimage));
         alert('프로필이 성공적으로 수정되었습니다.');
@@ -241,11 +250,10 @@ const MyProfilePage = () => {
     try {
       const response = await updateProfile(formData.nickname, imageInfo.id);
       if (response.message === '프로필 수정 성공') {
-        // 분리된 문자열로 받는 대신 직접 값을 사용
         const newNickname = response.nickname;
         const newUserimage = response.userimage;
         
-        setUserimage(String(newUserimage)); // userimage를 문자열로 변환
+        setUserimage(String(newUserimage));
         setFormData(prev => ({
           ...prev,
           nickname: newNickname
@@ -261,7 +269,7 @@ const MyProfilePage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'nickname') {  // nickname만 수정 가능
+    if (name === 'nickname') {
       setFormData(prev => ({
         ...prev,
         [name]: value
