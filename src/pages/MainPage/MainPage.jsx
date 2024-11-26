@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Frieren from '../../assets/images/characters/Frieren.png';
-import Baek from '../../assets/images/characters/Baek.png';
-import Tuttle from '../../assets/images/characters/Turttle.png';
 
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header.jsx";
 import {useNavigate} from "react-router-dom";
 import CustomTooltip from "../../components/CustomTooltip.jsx";
+
+import FrierenHome from '../../assets/images/characters/FrierenHome.png';
+import BaekHome from '../../assets/images/characters/BaekHome.png';
+import Tuttle from '../../assets/images/characters/Turttle.png';
 
 const MainPageContainer = styled.div`
   display: flex;
@@ -199,7 +200,7 @@ const MainPage = () => {
                             <CardLayout isExpanded={expandedCard === 'frieren'}>
                                 <CardInfo>
                                     <CustomTooltip text="Click to interact with Frieren">
-                                        <CardImage src={Frieren} alt="FRIEREN" onClick={() => handleNavigateToInteraction('Frieren')}/>
+                                        <CardImage src={FrierenHome} alt="FRIEREN" onClick={() => handleNavigateToInteraction('Frieren')}/>
                                     </CustomTooltip>
                                     <CardTitle>FRIEREN</CardTitle>
                                     <CardDescription>The mage who lives 1000 years</CardDescription>
@@ -257,7 +258,7 @@ const MainPage = () => {
                             <CardLayout isExpanded={expandedCard === 'baek'}>
                                 <CardInfo>
                                     <CustomTooltip text="Click to interact with Baek Jong-won">
-                                        <CardImage src={Baek} alt="JONGWON BAEK" onClick={() => handleNavigateToInteraction('JongwonBaek')}/>
+                                        <CardImage src={BaekHome} alt="JONGWON BAEK" onClick={() => handleNavigateToInteraction('JongwonBaek')}/>
                                     </CustomTooltip>
                                     <CardTitle>JONGWON BAEK</CardTitle>
                                     <CardDescription>Korean sweet Gordon Ramsay</CardDescription>
