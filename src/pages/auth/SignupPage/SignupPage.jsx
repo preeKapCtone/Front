@@ -6,58 +6,58 @@ import useForm from '../../../hooks/useForm';
 import { validateSignup } from '../../../utils/validate';
 import { signup } from '../../../utils/axios';
 
-const ErrorMessage = styled.span`
-  color: red;
-  font-size: 12px;
-  margin-top: -15px;
-  margin-bottom: 10px;
-`;
-
 const SignupPageContainer = styled.div`
   display: flex;
   height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 `;
 
 const LeftSection = styled.div`
- flex: 1;
- display: flex;
- flex-direction: column;
- justify-content: flex-start;  
- align-items: center;
- background-color: #9198ff;
- color: white;
- padding: 3rem;
- padding-top: 14rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;  
+  align-items: center;
+  background-color: #9198ff;
+  color: white;
+  padding: 0 3rem;
+  padding-top: 8vh;
+  overflow: hidden;
 `;
 
 const Subtitle = styled.p`
- font-size: 3rem;
- text-align: center;
- margin-bottom: 3rem;
- font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: bold;
 `;
 
 const CharacterImageContainer = styled.div`
- position: relative;
- width: 350px;        
- height: 650px;
- background-color: white;
- border-radius: 40px;
- display: flex;
- align-items: center;
- justify-content: center;
- margin-top: 2rem;
+  position: relative;
+  width: 350px;        
+  height: 70vh;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  overflow: hidden;
 
- &::before {
-   content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   border: 3px solid #0011ff;
-   border-radius: 40px;
- }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 3px solid #0011ff;
+    border-radius: 40px;
+  }
 `;
 
 const CharacterCard = styled.div`
@@ -87,6 +87,8 @@ const RightSection = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+  overflow: hidden;
+  padding: 2rem;
 `;
 
 const SignupBox = styled.div`
@@ -94,6 +96,7 @@ const SignupBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: -5vh;
 `;
 
 const TitleContainer = styled.div`
@@ -173,6 +176,13 @@ const CheckIcon = styled.div`
   }
 `;
 
+const ErrorMessage = styled.span`
+  color: red;
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: 10px;
+`;
+
 const SignupPage = () => {
   const navigate = useNavigate();
   const initialValues = { username: '', password: '', nickname: '' };
@@ -201,7 +211,6 @@ const SignupPage = () => {
     }
   };
   
- 
   return (
     <SignupPageContainer>
       <LeftSection>
