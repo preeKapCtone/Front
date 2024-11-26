@@ -9,13 +9,27 @@ import {
 } from "./ChatBoxCss.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-import FrierenLoader from "../../Unity/FrierenLoader.jsx";
 import {useNavigate} from "react-router-dom";
-import BookieLoader from "../../Unity/BookieLoader.jsx";
+import FrierenLoader from "../../Unity/FrierenLoader.jsx";
+import BoogieLoader from "../../Unity/BoogieLoader.jsx";
+import BaekLoader from "../../Unity/BaekLoader.jsx";
 
 
 export const UnityBox = ({ theme, onClose, name }) => {
     const navigate = useNavigate();
+
+    const renderLoader = () => {
+        switch (name) {
+            case "Frieren":
+                return <FrierenLoader />;
+            case "Boogie":
+                return <BoogieLoader />;
+            case "JongwonBaek":
+                return <BaekLoader />;
+            default:
+                return <div>Loader를 찾을 수 없습니다.</div>;
+        }
+    };
 
     return (
         <Wrapper theme={theme}>
@@ -35,7 +49,7 @@ export const UnityBox = ({ theme, onClose, name }) => {
             </NavigationBar>
             {/* ChatContainer가 들어가는 영역 */}
             <ChatContainer theme={theme}>
-                <BookieLoader/>
+                {renderLoader()}
             </ChatContainer>
             <NavigationBar theme={theme}>
                 <HomeButton theme={theme} onClick={onClose}>
