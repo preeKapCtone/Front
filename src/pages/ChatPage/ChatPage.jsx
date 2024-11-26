@@ -4,6 +4,7 @@ import ChatBox from "../../components/common/Box/ChatBox.jsx";
 import { characterColors, themeData } from "../../components/common/Box/theme.jsx";
 import styled from "styled-components";
 import axios from "axios";
+import Splash from "../../components/common/Box/Splash.jsx";
 
 const PageContainer = styled.div`
   display: flex;
@@ -59,7 +60,13 @@ const ChatPage = () => {
     console.log(messages);
 
     if (loading) {
-        return <div>로딩 중...</div>;
+        return (
+            <Splash
+                chatBubbleColor={bgColor}
+                spinnerColor={theme.chatBubbleColor}
+                textColor={theme.backgroundColor}
+            />
+        );
     }
 
     if (error) {
