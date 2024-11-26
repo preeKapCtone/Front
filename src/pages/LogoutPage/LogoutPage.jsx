@@ -6,6 +6,11 @@ import characterImage from '../../assets/images/characters/Turttle.png';
 const LogoutPageContainer = styled.div`
   display: flex;
   height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 `;
 
 const LeftSection = styled.div`
@@ -16,27 +21,29 @@ const LeftSection = styled.div`
   align-items: center;
   background-color: #9198ff;
   color: white;
-  padding: 3rem;
-  padding-top: 14rem;
+  padding: 0 3rem;
+  padding-top: 8vh;
+  overflow: hidden;
 `;
 
 const Subtitle = styled.p`
   font-size: 3rem;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   font-weight: bold;
 `;
 
 const CharacterImageContainer = styled.div`
   position: relative;
   width: 350px;
-  height: 650px;
+  height: 70vh;
   background-color: white;
   border-radius: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -77,6 +84,8 @@ const RightSection = styled.div`
   justify-content: center;
   align-items: center;
   background-color: white;
+  overflow: hidden;
+  padding: 2rem;
 `;
 
 const Message = styled.h1`
@@ -84,6 +93,8 @@ const Message = styled.h1`
   font-weight: bold;
   color: #8180c9;
   animation: fadeIn 0.5s ease-in;
+  margin: 0;
+  padding: 0;
 
   @keyframes fadeIn {
     from {
@@ -101,17 +112,12 @@ const LogoutPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 6초 후에 실행될 로그아웃 처리
     const timer = setTimeout(() => {
-      // localStorage의 모든 항목 제거
       localStorage.clear();
-      // 세션스토리지의 모든 항목 제거
       sessionStorage.clear();
-      // 로그인 페이지로 리다이렉트
       navigate('/login');
-    }, 6000); // 6초로 설정
+    }, 6000);
 
-    // 컴포넌트가 언마운트될 때 타이머 정리
     return () => clearTimeout(timer);
   }, [navigate]);
 

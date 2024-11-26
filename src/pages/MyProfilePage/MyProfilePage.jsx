@@ -127,18 +127,19 @@ const Button = styled.button`
 const CharacterSelector = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 20px;
-  padding: 40px;
+  padding: 37px;
   display: ${props => props.$isVisible ? 'grid' : 'none'};
   grid-template-columns: repeat(8, 1fr);
-  gap: 25px;
+  gap: 20px;
   width: 100%;
-  margin-top: 20px;
+  max-width: 1080px;
+  margin: 20px auto 0;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const CharacterOption = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   border: 3px solid ${props => props.$isSelected ? '#8f9dff' : 'transparent'};
   overflow: hidden;
