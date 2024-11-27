@@ -210,7 +210,7 @@ const MainPage = () => {
                                 </CardInfo>
                                 <CardContent isExpanded={expandedCard === 'frieren'}>
                                     <p>
-                                        Frieren has an easy-going personality, however, her aloof attitude makes her a mystery to her peers...
+                                       "장송의 프리렌"의 주인공인 프리렌은, 1000년산 위대한 마법사입니다. 그녀에게 마법과 "장송의 프리렌" 설정에 대해 물어보세요.
                                     </p>
                                 </CardContent>
                             </CardLayout>
@@ -239,7 +239,7 @@ const MainPage = () => {
                                 </CardInfo>
                                 <CardContent isExpanded={expandedCard === 'boogie'}>
                                     <p>
-                                        Boogie is the beloved turtle who lives at our university and brings joy to everyone who sees him...
+                                        "한성대학교"의 마스코트인 상상부기는, 학우들한테 긍정적인 기운을 주는 친구입니다. 학교에 대해 모든걸 물어보세요 !
                                     </p>
                                 </CardContent>
                             </CardLayout>
@@ -268,7 +268,8 @@ const MainPage = () => {
                                 </CardInfo>
                                 <CardContent isExpanded={expandedCard === 'baek'}>
                                     <p>
-                                        Jongwon Baek, known as the "Korean Sweet Gordon Ramsay," is a culinary genius admired by many...
+                                        "더본코리아의 대표" 백종원 선생님은 여러분께 다양한 레시피를 제공하며 요리에 대한 자신감을 줍니다.
+
                                     </p>
                                 </CardContent>
                             </CardLayout>
