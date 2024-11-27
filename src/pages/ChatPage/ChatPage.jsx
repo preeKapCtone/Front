@@ -31,7 +31,7 @@ const ChatPage = () => {
         const fetchMessages = async () => {
             console.log("check : ", character, token);
             try {
-                const response = await axios.get(`http://localhost:8080/api/posts?title=${character}`, {
+                const response = await axios.get(`http://43.202.52.225:8080/api/posts?title=${character}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
