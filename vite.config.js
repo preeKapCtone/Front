@@ -12,7 +12,7 @@ export default defineConfig({
         changeOrigin: true
       },
       '/fastapi': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8000',
         changeOrigin: true
       }
     }
