@@ -74,7 +74,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         try {
             // 서버에 메시지 전송
             const response = await axios.post(
-                'http://43.202.52.225:8000/fastapi/posts',
+                'http://localhost:8000/fastapi/posts',
                 {
                     user_message: message,
                     assistant_id: selectedAssistantID
