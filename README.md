@@ -40,6 +40,31 @@
   </li>
 </ul>
 
+## 💗 다마고치의 기대효과
+<ul>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">💗 사용자 경험 향상</span><br>
+    시간 감정 표현으로 몰입감 높은 대화 제공하고, 맞춤형 반응을 통해 개별화된 소통 경험 지원
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">💗 감정적 만족과 엔터테인먼트</span><br>
+    캐릭터와의 상호작용으로 재미와 흥미 유발하며 AI와의 정서적 교감을 통해 스트레스 완화 및 안정감 제공
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">💗 교육 및 훈련 기회</span><br>
+   대화를 통해 사회적 스킬과 언어 능력 연습이 가능하고, AI 친숙도를 높여 기술 이해도 향상
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">💗 데이터 기반 인사이트 제공</span><br>
+    대화 데이터를 분석해 사용자 선호 파악 및 서비스 개선
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">💗 기술 발전과 확장 가능성
+</span><br>
+감정 표현과 AI 결합으로 UI/UX 혁신 및 다양한 서비스 확장성 지원
+  </li>
+</ul>
+
 
 ## 🐢 팀원 소개
 
