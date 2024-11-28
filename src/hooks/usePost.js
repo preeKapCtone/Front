@@ -1,20 +1,19 @@
 import axios from "axios";
 
-export const usePost = async (url, data, token) => {
+export const usePost = async (url, data, token = null) => {
     try {
-        await axios.post(
-            'http://localhost:8080/api/posts',
-            data,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true, // 쿠키 및 인증 정보를 포함
-            }
-        );
+        const headers = {
+            "Content-Type": "application/json",
+        };
+
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+
+        const response = await axios.post(url, data, { headers });
+        return response.data;
     } catch (error) {
-        console.error("Failed to fetch character data.", error);
+        console.error("Error with POST request:", error);
         throw error;
     }
 };
