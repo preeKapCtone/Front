@@ -63,8 +63,8 @@
     <td>@carrotcake218</td>
   </tr>
   <tr>
-    <td>프론트전반 <br>(Log in, Sign Up 등등 구축)</td>
-    <td>프론트 세부 <br>(Chat Logic Making 및 설계)</td>
+    <td>프론트전반 <br>(Log in, Sign Up <br>등등 구축)</td>
+    <td>프론트 세부 <br>(Chat Logic Making <br>및 설계)</td>
     <td>UI 디자인 및 <br>데이터 추출</td>
   </tr>
 </table>
