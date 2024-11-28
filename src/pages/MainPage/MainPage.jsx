@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { useNavigate } from "react-router-dom";
+import CustomTooltip from "../../components/CustomTooltip.jsx";
 import Footer from "../../components/common/Footer.jsx";
 import Header from "../../components/common/Header.jsx";
-import {useNavigate} from "react-router-dom";
-import CustomTooltip from "../../components/CustomTooltip.jsx";
+import { FrierenGreeting, BoogieGreeting, BaekGreeting } from '../../components/GreetingCard';
 
 import FrierenHome from '../../assets/images/characters/FrierenHome.png';
 import BaekHome from '../../assets/images/characters/BaekHome.png';
@@ -26,7 +26,7 @@ const CardsContainer = styled.div`
   padding: 20px;
   background-color: #8f9dff;
   flex: 1;
-  position: relative; /* 부모를 기준으로 카드들의 위치 설정 */
+  position: relative;
   transition: all 0.3s ease;
 `;
 
@@ -38,7 +38,6 @@ const CardWrapper = styled.div`
   transition: all 0.3s ease;
   position: absolute;
 
-  /* 카드 위치 지정 */
   left: ${props => {
     if (props.cardPosition === 'left') return '10%';
     if (props.cardPosition === 'center') return '50%';
@@ -46,7 +45,6 @@ const CardWrapper = styled.div`
   }};
   right: ${props => (props.cardPosition === 'right' ? '10%' : 'auto')};
 
-  /* 확장 방향 설정 */
   transform-origin: ${props => {
     if (props.cardPosition === 'left') return 'left center';
     if (props.cardPosition === 'center') return 'center center';
@@ -60,7 +58,6 @@ const CardWrapper = styled.div`
   max-height: 440px;
   display: ${props => (props.isVisible ? 'block' : 'none')};
 
-  /* 반응형 디자인: 화면이 작아질 때 카드 전체 너비를 차지 */
   @media (max-width: 768px) {
     position: static;
     width: 90%;
@@ -72,15 +69,26 @@ const CardWrapper = styled.div`
 const Card = styled.div`
   background-color: ${props => props.bgColor || 'white'};
   border-radius: 15px;
-  padding: 10px;
-  color: white;
-  font-weight: bold;
+  padding: 20px;
   display: flex;
-  gap: ${props => (props.isExpanded ? '20px' : '0')}; /* 확장 시 이미지와 설명 사이 간격 */
-  max-height: 420px; /* Card의 최대 높이 설정 */
-  overflow-y: auto; /* 내용이 많을 경우 스크롤 활성화 */
+  height: 100%;
+  max-height: 420px;
+  overflow: hidden;
 
-  /* 반응형 디자인: 화면이 작아질 때 세로 배치 */
+  flex-direction: ${props => (props.isExpanded ? 'row' : 'column')};
+  gap: ${props => (props.isExpanded ? '40px' : '10px')};
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const CardLayout = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
   flex-direction: ${props => (props.isExpanded ? 'row' : 'column')};
 
   @media (max-width: 768px) {
@@ -97,37 +105,26 @@ const CardImage = styled.img`
   object-fit: cover;
 
   @media (max-width: 768px) {
-    width: 200px; /* 모바일에서는 크기 축소 */
+    width: 200px;
     height: auto;
   }
 `;
 
 const CardContent = styled.div`
-  display: ${props => (props.isExpanded ? 'block' : 'none')};
-  color: #333;
-  font-size: 1rem;
+  display: ${props => (props.isExpanded ? 'flex' : 'none')};
+  flex-direction: column;
   flex: 1;
+  background-color: ${props => props.bgColor || 'transparent'};
   opacity: ${props => (props.isExpanded ? 1 : 0)};
   transform: ${props => (props.isExpanded ? 'translateX(0)' : 'translateX(-10px)')};
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  max-width: 100%;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  padding: 10px;
+  height: 100%;
 
   @media (max-width: 768px) {
-    font-size: 0.9rem; /* 작은 화면에서 텍스트 크기 축소 */
-    padding: 10px;
-    text-align: center;
-  }
-`;
-
-const CardLayout = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-direction: ${props => (props.isExpanded ? 'row' : 'column')};
-
-  @media (max-width: 768px) {
-    flex-direction: column; /* 화면이 좁아지면 세로 정렬 */
-    align-items: center;
+    width: 100%;
+    padding: 10px 0;
   }
 `;
 
@@ -136,11 +133,14 @@ const CardInfo = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  flex-shrink: 0;
+  width: ${props => (props.isExpanded ? '300px' : '100%')};
 `;
 
 const CardTitle = styled.h2`
   font-size: 1.5rem;
   margin: 0;
+  color: #ffffff;
 `;
 
 const CardDescription = styled.p`
@@ -172,15 +172,15 @@ const MainPage = () => {
     const navigate = useNavigate();
 
     const handleExpand = (card) => {
-        setExpandedCard(expandedCard === card ? null : card); // 클릭 시 같은 카드면 축소, 아니면 확장
+        setExpandedCard(expandedCard === card ? null : card);
     };
 
     const handleNavigateToChat = (character) => {
-        navigate(`/chat/${character}`); // 캐릭터에 해당하는 URL로 이동
+        navigate(`/chat/${character}`);
     };
 
     const handleNavigateToInteraction = (character) => {
-        navigate(`/interaction/${character}`); // 캐릭터에 해당하는 URL로 이동
+        navigate(`/interaction/${character}`);
     };
 
     return (
@@ -188,7 +188,7 @@ const MainPage = () => {
             <MainPageContainer>
                 <Header />
                 <CardsContainer>
-                    {/* 첫 번째 카드 */}
+                    {/* Frieren Card */}
                     <CardWrapper
                         isExpanded={expandedCard === 'frieren'}
                         isVisible={expandedCard === null || expandedCard === 'frieren'}
@@ -196,28 +196,34 @@ const MainPage = () => {
                         onMouseEnter={() => handleExpand('frieren')}
                         onMouseLeave={() => handleExpand(null)}
                     >
-                        <Card bgColor="#ffb6c1">
+                        <Card bgColor="#ffb6c1" isExpanded={expandedCard === 'frieren'}>
                             <CardLayout isExpanded={expandedCard === 'frieren'}>
-                                <CardInfo>
+                                <CardInfo isExpanded={expandedCard === 'frieren'}>
                                     <CustomTooltip text="Click to interact with Frieren">
-                                        <CardImage src={FrierenHome} alt="FRIEREN" onClick={() => handleNavigateToInteraction('Frieren')}/>
+                                        <CardImage 
+                                            src={FrierenHome} 
+                                            alt="FRIEREN" 
+                                            onClick={() => handleNavigateToInteraction('Frieren')}
+                                        />
                                     </CustomTooltip>
                                     <CardTitle>FRIEREN</CardTitle>
                                     <CardDescription>The mage who lives 1000 years</CardDescription>
-                                    <ChatButton buttonColor="#ffb6c1" hoverColor="#e18ee0" onClick={() => handleNavigateToChat('Frieren')} >
+                                    <ChatButton 
+                                        buttonColor="#ffb6c1" 
+                                        hoverColor="#e18ee0" 
+                                        onClick={() => handleNavigateToChat('Frieren')}
+                                    >
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
                                 <CardContent isExpanded={expandedCard === 'frieren'}>
-                                    <p>
-                                        Frieren has an easy-going personality, however, her aloof attitude makes her a mystery to her peers...
-                                    </p>
+                                    <FrierenGreeting isExpanded={expandedCard === 'frieren'} />
                                 </CardContent>
                             </CardLayout>
                         </Card>
                     </CardWrapper>
 
-                    {/* 두 번째 카드 */}
+                    {/* Boogie Card */}
                     <CardWrapper
                         isExpanded={expandedCard === 'boogie'}
                         isVisible={expandedCard === null || expandedCard === 'boogie'}
@@ -225,28 +231,34 @@ const MainPage = () => {
                         onMouseEnter={() => handleExpand('boogie')}
                         onMouseLeave={() => handleExpand(null)}
                     >
-                        <Card bgColor="#8f9dff">
+                        <Card bgColor="#8f9dff" isExpanded={expandedCard === 'boogie'}>
                             <CardLayout isExpanded={expandedCard === 'boogie'}>
-                                <CardInfo>
+                                <CardInfo isExpanded={expandedCard === 'boogie'}>
                                     <CustomTooltip text="Click to interact with Boogie">
-                                        <CardImage src={Tuttle} alt="BOOGIE" onClick={() => handleNavigateToInteraction('Boogie')}/>
+                                        <CardImage 
+                                            src={Tuttle} 
+                                            alt="BOOGIE" 
+                                            onClick={() => handleNavigateToInteraction('Boogie')}
+                                        />
                                     </CustomTooltip>
                                     <CardTitle>BOOGIE</CardTitle>
                                     <CardDescription>lovely turtle who lives in our hansung</CardDescription>
-                                    <ChatButton buttonColor="#8f9dff" hoverColor="#7e8bd1" onClick={() => handleNavigateToChat('Boogie')}>
+                                    <ChatButton 
+                                        buttonColor="#8f9dff" 
+                                        hoverColor="#7e8bd1" 
+                                        onClick={() => handleNavigateToChat('Boogie')}
+                                    >
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
                                 <CardContent isExpanded={expandedCard === 'boogie'}>
-                                    <p>
-                                        Boogie is the beloved turtle who lives at our university and brings joy to everyone who sees him...
-                                    </p>
+                                    <BoogieGreeting isExpanded={expandedCard === 'boogie'} />
                                 </CardContent>
                             </CardLayout>
                         </Card>
                     </CardWrapper>
 
-                    {/* 세 번째 카드 */}
+                    {/* Baek Jong-won Card */}
                     <CardWrapper
                         isExpanded={expandedCard === 'baek'}
                         isVisible={expandedCard === null || expandedCard === 'baek'}
@@ -254,22 +266,28 @@ const MainPage = () => {
                         onMouseEnter={() => handleExpand('baek')}
                         onMouseLeave={() => handleExpand(null)}
                     >
-                        <Card bgColor="#a9a9a9">
+                        <Card bgColor="#a9a9a9" isExpanded={expandedCard === 'baek'}>
                             <CardLayout isExpanded={expandedCard === 'baek'}>
-                                <CardInfo>
+                                <CardInfo isExpanded={expandedCard === 'baek'}>
                                     <CustomTooltip text="Click to interact with Baek Jong-won">
-                                        <CardImage src={BaekHome} alt="JONGWON BAEK" onClick={() => handleNavigateToInteraction('JongwonBaek')}/>
+                                        <CardImage 
+                                            src={BaekHome} 
+                                            alt="JONGWON BAEK" 
+                                            onClick={() => handleNavigateToInteraction('JongwonBaek')}
+                                        />
                                     </CustomTooltip>
                                     <CardTitle>JONGWON BAEK</CardTitle>
                                     <CardDescription>Korean sweet Gordon Ramsay</CardDescription>
-                                    <ChatButton buttonColor="#a9a9a9" hoverColor="#b0b0b0"  onClick={() => handleNavigateToChat('JongwonBaek')}>
+                                    <ChatButton 
+                                        buttonColor="#a9a9a9" 
+                                        hoverColor="#b0b0b0" 
+                                        onClick={() => handleNavigateToChat('JongwonBaek')}
+                                    >
                                         Let's chat!
                                     </ChatButton>
                                 </CardInfo>
                                 <CardContent isExpanded={expandedCard === 'baek'}>
-                                    <p>
-                                        Jongwon Baek, known as the "Korean Sweet Gordon Ramsay," is a culinary genius admired by many...
-                                    </p>
+                                    <BaekGreeting isExpanded={expandedCard === 'baek'} />
                                 </CardContent>
                             </CardLayout>
                         </Card>
