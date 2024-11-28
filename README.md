@@ -58,9 +58,9 @@
     
   </tr>
   <tr>
-    <td>프론트전반 (Log in ,Sign Up. 등등.. 구축)</td>
-    <td>프론트 세부 ( Chat Logic Making 및 설계)</td>
-    <td>UI디자인 및 데이터 추출</td>
+    <td>프론트전반 <br>(Log in ,Sign Up. 등등.. 구축)</td>
+    <td>프론트 세부 <br>(Chat Logic Making 및 설계)</td>
+    <td>UI디자인 및 <br>데이터 추출</td>
   </tr>
 </table>
 
@@ -79,6 +79,6 @@
     <td>@dmp100</td>
   </tr>
   <tr>
-    <td>백엔드 (Spring boot)</td>
+    <td>백엔드 <br>(Spring boot)</td>
     <td>프로젝트 총괄(팀장), AI 모델구현, <br>API 서버 구축 , Unity Interface </td>
 
