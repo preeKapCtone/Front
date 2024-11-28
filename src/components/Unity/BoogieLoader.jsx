@@ -35,7 +35,7 @@ export const BoogieLoader = ({ theme }) => {
         loaderUrl: "/importInteraction/BG/Build/BG.loader.js",
         dataUrl: "/importInteraction/BG/Build/BG.data",
         frameworkUrl: "/importInteraction/BG/Build/BG.framework.js",
-        codeUrl: "/importInteraction/BG/Build/BG.wasm",
+        codeUrl: "/importInteraction/BG/Build/BG.wasm", 
     });
 
     return (

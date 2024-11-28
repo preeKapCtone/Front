@@ -30,12 +30,12 @@ const StyledUnity = styled(Unity)`
     height: 100%;
 `;
 
-export const BoogieLoader = ({ theme }) => {
+export const BaekLoader = ({ theme }) => {
     const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
-        loaderUrl: "",
-        dataUrl: "",
-        frameworkUrl: "",
-        codeUrl: "",
+        loaderUrl: "/importInteraction/Baek/Build/Baek.loader.js",
+        dataUrl: "/importInteraction/Baek/Build/Baek.data",
+        frameworkUrl: "/importInteraction/Baek/Build/Baek.framework.js",
+        codeUrl: "/importInteraction/Baek/Build/Baek.wasm",
     });
 
     return (
@@ -56,4 +56,4 @@ export const BoogieLoader = ({ theme }) => {
     );
 };
 
-export default BoogieLoader;
+export default BaekLoader;
