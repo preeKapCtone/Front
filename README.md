@@ -64,7 +64,7 @@
   </tr>
   <tr>
     <td>프론트전반 <br>(Log in, Sign Up <br>등등 구축)</td>
-    <td>프론트 세부 <br>(Chat Logic Making <br>및 설계)</td>
+    <td>프론트 세부 <br>(Chat Logic <br>Making <br>및 설계)</td>
     <td>UI 디자인 및 <br>데이터 추출</td>
   </tr>
 </table>
@@ -89,7 +89,7 @@
   </tr>
   <tr>
     <td>백엔드 <br>(Spring Boot)</td>
-    <td>프로젝트 총괄(팀장), AI 모델 구현, <br>API 서버 구축, Unity Interface</td>
+    <td>프로젝트 총괄(팀장), <br>AI 모델 구현, <br>API 서버 구축, Unity Interface</td>
   </tr>
 </table>
 
