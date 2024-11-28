@@ -37,7 +37,7 @@
   </li>
 </ul>
 
-## 🖥️ 팀원 소개
+## 🐢 팀원 소개
 
 ### FRONTEND
 <table>
@@ -117,49 +117,19 @@
 
 ## 👀 화면 구성
 
-### 로그인, 회원가입, 마이페이지
+<h4>✨로그인, 회원가입, 마이페이지</h4>
 
  ![image](https://github.com/user-attachments/assets/57d9ce26-825a-491f-a98f-cc04bd5fac26)
-<table>
-  <tr>
-    <th>로그인, 회원가입, 마이페이지</th>
-    <th>캐릭터 선택, 소개</th>
-  </tr>
-  <tr>
-    <td>
-      ![image](https://github.com/user-attachments/assets/57d9ce26-825a-491f-a98f-cc04bd5fac26)
 
-    </td>
-    <td>
-      ![image](https://github.com/user-attachments/assets/ec418d84-e689-481e-ae6a-9b43d92182a0)
+<h4>✨캐릭터 선택, 소개</h4>
 
-    </td>
-  </tr>
-  <tr>
-    <td>로그인, 회원가입, 마이페이지</td>
-    <td>캐릭터 선택, 소개</td>
-  </tr>
-</table>
+![image](https://github.com/user-attachments/assets/ec418d84-e689-481e-ae6a-9b43d92182a0)
 
-<table>
-  <tr>
-    <th>채팅하기 페이지</th>
-    <th>상호작용 페이지</th>
-  </tr>
-  <tr>
-    <td>
-      ![image](https://github.com/user-attachments/assets/d7f78aab-039b-4b9c-b032-29f1e15604aa)
+<h4>✨채팅하기 페이지</h4>
 
-    </td>
-    <td>
-      ![image](https://github.com/user-attachments/assets/3b7e6654-49a2-40e1-bc5c-2987662dccd4)
+![image](https://github.com/user-attachments/assets/d7f78aab-039b-4b9c-b032-29f1e15604aa)
 
-    </td>
-  </tr>
-  <tr>
-    <td>채팅하기 페이지</td>
-    <td>상호작용 페이지</td>
-  </tr>
-</table>
+<h4>✨상호작용 페이지</h4>
 
-
+![image](https://github.com/user-attachments/assets/3b7e6654-49a2-40e1-bc5c-2987662dccd4)
+  
