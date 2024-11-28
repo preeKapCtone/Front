@@ -4,7 +4,7 @@
 ## 👾 다마고치의 시작
 <h4>다양한 AI 모델이 발전하면서 인격을 가진 인공지능과의 소통에 대한 관심이 증가함에 따라, AI 캐릭터와의 상호작용을 통해 사용자가 실제로 감정적 연결을 느낄 수 있는 시스템을 구현하고자 본 프로젝트를 시작했습니다.</h4>
 
-<h5>개발 기간 : 2024.09 ~ 첫눈 오는 </h5>
+<h5>개발 기간 : 2024.09 ~ 첫눈 오는 날</h5>
 
 **🌐 프로젝트 배포 주소:** <a href='http://damagochi.shop'>👆🏻</a>
 
@@ -47,9 +47,15 @@
     <th>엄새연</th>
   </tr>
   <tr>
-    <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2vfG3wQ0FIZ7b5Ov1V5a2DzrKMo001lzNvQ&s" alt="양정우" width="100"></td>
-    <td><img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/CVs2KUwufUf8MpCYrI3vXjrxEWg" alt="함형범" width="100"></td>
-    <td><img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/kgrX09LHBjBn2htx2q84hlBLFgs" alt="엄새연" width="100"></td>
+    <td>
+      <img src="https://github.com/mrangjw.png" alt="양정우" width="100">
+    </td>
+    <td>
+      <img src="https://github.com/gka0903.png" alt="함형범" width="100">
+    </td>
+    <td>
+      <img src="https://github.com/carrotcake218w.png" alt="엄새연" width="100">
+    </td>
   </tr>
   <tr>
     <td>@mrangjw</td>
@@ -70,8 +76,12 @@
     <th>성규현</th>
   </tr>
   <tr>
-    <td><img src="https://i.namu.wiki/i/kPJMhf3xm02hfkdpjV-YJ9iE-B4t21ENfLOjJ50ASIWDkvqvtnhW1uOVRV_gfTFjuQEsjHuZJprBL_zLhzgrQg.png" alt="이재욱" width="100"></td>
-    <td><img src="https://i.namu.wiki/i/8MG7rjLvqGon0snc5mX3L03TAr3WRW-D6WoW-ouOn3BdawjtlTsa7nCAgPphi_uy3-s_jKiYita-uZ2N4QudtQ.webp" alt="성규현" width="100"></td>
+    <td>
+      <img src="https://github.com/22-JWL.png" alt="이재욱" width="100">
+    </td>
+    <td>
+      <img src="https://github.com/dmp100.png" alt="성규현" width="100">
+    </td>
   </tr>
   <tr>
     <td>@22-JWL</td>
