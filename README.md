@@ -10,3 +10,27 @@
 
 **🎨 피그마:** <a href='https://www.figma.com/design/lV5eYGRG1GUTaIhPQ8vTrc/SW-%ED%94%84%EB%A6%AC-%EC%BA%A1%EC%8A%A4%ED%86%A4-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0-1&t=xzzCE8frUkwojFF9-1'>👆🏻</a>
 
+## 🤖 다마고치의 주요 기능
+<ul>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🤖 캐릭터 상호작용</span><br>
+    사용자는 캐릭터에게 명령을 내리거나 행동을 유도하고,  캐릭터는 이에 반응하여 다양한 표정과 행동을 표현합니다.
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🤖 AI 챗봇 대화</span><br>
+    캐릭터들은 각각의 성격을 가지며, GPT 기반의 AI 챗봇을 통해 자연스러운 대화를 통해  감정과 인격을 표현합니다.
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🤖 감정 표현</span><br>
+    대화와 행동에 따라 감정이 변화하는 시스템을 설계,  이에 맞게 대화를 이어나갈 수 있도록 구현합니다.
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🤖 행동 변화</span><br>
+    캐릭터는 사용자와의 상호작용을 통해 행동이 변화하며  캐릭터가 성장하는 경험을 제공합니다.
+  </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🤖 맞춤형 반응
+</span><br>
+    사용자의 대화와 상호작용에 따라 기분이나 대화 패턴을 학습하여 더 개인화된 경험을 제공하는 것이 목표입니다.
+  </li>
+</ul>
