@@ -108,3 +108,8 @@
 </ul>
 
 ![image](https://github.com/user-attachments/assets/d68f2aa5-fec5-4dcb-8832-d45093e88463)
+
+## 👀 화면 구성
+
+![Uploading image.png…]()
+
