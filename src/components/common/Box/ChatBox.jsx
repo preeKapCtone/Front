@@ -132,7 +132,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         }
         const token = localStorage.getItem('token');
         try {
-            await usePost("/api/posts", responses, token);
+            await usePost("api/posts", responses, token);
             // API 호출
             console.log("Chat history saved successfully.");
         } catch (error) {
