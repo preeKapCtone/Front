@@ -22,7 +22,6 @@ import {usePost} from "../../../hooks/usePost.js";
 import Tuttle from "../../../assets/images/characters/Turttle.png";
 import Frieren from "../../../assets/images/characters/Frieren.png";
 import Baek from "../../../assets/images/characters/Baek.png";
-import defaultProfileImage from '../../../assets/images/profileimage/pro16.png';
 
 // Frieren의 감정 이미지들
 import FrierenHappy1 from '../../../assets/images/characters/emotions/Frieren_happy1.gif';
@@ -291,19 +290,21 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                     margin: '10px 0',
                                 }}
                             >
-                                {!message.isUser && (
-                                    <img
-                                        src={imageSrc}
-                                        alt="avatar"
-                                        style={{
-                                            width: '40px',
-                                            height: '40px',
-                                            borderRadius: '50%',
-                                            marginRight: '10px',
-                                            border: '1px solid white'
-                                        }}
-                                    />
-                                )}
+                                {message.isUser && (
+    <img
+        src={userimage && userimage !== '0'
+            ? profileImages[parseInt(userimage) - 1]?.path || profile16
+            : profile16}
+        alt="avatar"
+        style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            marginLeft: '10px',
+            border: '1px solid white'
+        }}
+    />
+)}
 
                                 <div
                                     style={{
