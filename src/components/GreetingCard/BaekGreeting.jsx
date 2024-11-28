@@ -108,21 +108,9 @@ export const BaekGreeting = ({ isExpanded }) => {
             <MessageTime>오후 3:24</MessageTime>
           </MessageBubble>
         </MessageContainer>
-
-
-
-       {/* 사용자의 마지막 메시지 */}
-      <MessageContainer>
-        <MessageBubble isUser>
-          <Message isUser>
-            오 좋은 정보 감사합니다!
-          </Message>
-          <MessageTime isUser>오후 3:24</MessageTime>
-        </MessageBubble>
-      </MessageContainer>
-    </ChatSection>
-  </ChatContainer>
-);
+      </ChatSection>
+    </ChatContainer>
+  );
 };
 
 export default BaekGreeting;
