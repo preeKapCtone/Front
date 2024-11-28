@@ -301,15 +301,57 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                     margin: "10px 0",
                                 }}
                             >
-                            
+                                {/* 삭제: 채팅 앞에 있던 프로필 이미지 */}
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "flex-start",
+                                        alignItems: "start",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            backgroundColor: message.isUser
+                                                ? theme.chatBubbleColor
+                                                : "#ffffff",
+                                            padding: "10px 15px",
+                                            borderRadius: "10px",
+                                            maxWidth: "80%",
+                                            textAlign: "left",
+                                            border: "1px solid white",
+                                        }}
+                                    >
+                                        {message.body}
+                                    </div>
+                                    {message.image && (
+                                        <div
+                                            style={{
+                                                textAlign: "center",
+                                                margin: "10px 0",
+                                            }}
+                                        >
+                                            <img
+                                                src={message.image}
+                                                alt="emotion indicator"
+                                                style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    borderRadius: "10px",
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+    
                                 {/* 유지: 채팅 말풍선 뒤의 프로필 이미지 */}
                                 {message.isUser && (
                                     <img
                                         src={
                                             userimage && userimage !== "0"
                                                 ? profileImages[
-                                                    parseInt(userimage) - 1
-                                                ]?.path || profile16
+                                                      parseInt(userimage) - 1
+                                                  ]?.path || profile16
                                                 : profile16
                                         }
                                         alt="avatar"
