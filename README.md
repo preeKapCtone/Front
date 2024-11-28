@@ -2,4 +2,6 @@
 ![image](https://github.com/user-attachments/assets/fc593705-70af-405a-939d-3be81591f8d8)
 
 
-<h3 style="color:purple;font-size: 36px; text-decoration: underline;">🤗이 프로젝트는 실시간 상호작용이 가능한 AI 기반 캐릭터 육성 및 대화형 챗봇 플랫폼입니다.</br> Unity로 시각적 상호작용을 구현하고 GPT 기반 AI 모델로 감정이 반영된 자연스러운 대화를 제공합니다. </br>사용자는 캐릭터와 소통하며 감정과 행동이 변화하는 생동감 있는 경험을 즐길 수 있습니다.</h3> 
+<h3 style="color:purple;font-size: 20px; text-decoration: underline;">다양한 AI 모델이 발전하면서 인격을 가진 인공지능과의 소통에 대한 관심이 증가함에 따라, AI 캐릭터와의 상호작용을 통해 사용자가 실제로 감정적 연결을 느낄 수 있는 
+시스템을 구현하고자 본 프로젝트를 시작했습니다. 
+.</h3> 
