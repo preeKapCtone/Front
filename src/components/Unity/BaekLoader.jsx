@@ -32,10 +32,10 @@ const StyledUnity = styled(Unity)`
 
 export const BaekLoader = ({ theme }) => {
     const { unityProvider, isLoaded, loadingProgression } = useUnityContext({
-        loaderUrl: "/importInteraction/Baek/Build/Baek.loader.js",
-        dataUrl: "/importInteraction/Baek/Build/Baek.data",
-        frameworkUrl: "/importInteraction/Baek/Build/Baek.framework.js",
-        codeUrl: "/importInteraction/Baek/Build/Baek.wasm",
+        loaderUrl: "/importInteraction/Beak/Build/Beak.loader.js",
+        dataUrl: "/importInteraction/Beak/Build/Beak.data",
+        frameworkUrl: "/importInteraction/Beak/Build/Beak.framework.js",
+        codeUrl: "/importInteraction/Beak/Build/Beak.wasm",
     });
 
     return (
