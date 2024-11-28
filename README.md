@@ -12,6 +12,7 @@
 
 **🎨 피그마:** <a href='https://www.figma.com/design/lV5eYGRG1GUTaIhPQ8vTrc/SW-%ED%94%84%EB%A6%AC-%EC%BA%A1%EC%8A%A4%ED%86%A4-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0-1&t=xzzCE8frUkwojFF9-1'>👆🏻</a>
 
+
 ## 🤖 다마고치의 주요 기능
 <ul>
   <li style="list-style-type: none; margin-bottom: 10px;">
@@ -36,6 +37,7 @@
     사용자의 대화와 상호작용에 따라 기분이나 대화 패턴을 학습하여 더 개인화된 경험을 제공하는 것이 목표입니다.
   </li>
 </ul>
+
 
 ## 🐢 팀원 소개
 
@@ -92,6 +94,7 @@
     <td>프로젝트 총괄(팀장), <br>AI 모델 구현, <br>API 서버 구축, <br>Unity Interface</td>
   </tr>
 </table>
+
 
 ## 💡사용 기술
 
