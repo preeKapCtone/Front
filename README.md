@@ -6,6 +6,6 @@
 
 **🌐 프로젝트 배포 주소:** <a href='http://damagochi.shop'>🌐</a>
 
-**💬 팀 노션:** <https://www.notion.so/SW-12ffe3248b8281fd92beef484a215c65>
+**💬 팀 노션:** <a href='https://www.notion.so/SW-12ffe3248b8281fd92beef484a215c65'>💬</a>
 
-**🎨 피그마:** <https://www.figma.com/design/lV5eYGRG1GUTaIhPQ8vTrc/SW-%ED%94%84%EB%A6%AC-%EC%BA%A1%EC%8A%A4%ED%86%A4-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0-1&t=xzzCE8frUkwojFF9-1>
+**🎨 피그마:** <a href='https://www.figma.com/design/lV5eYGRG1GUTaIhPQ8vTrc/SW-%ED%94%84%EB%A6%AC-%EC%BA%A1%EC%8A%A4%ED%86%A4-%EB%94%94%EC%9E%90%EC%9D%B8?node-id=0-1&t=xzzCE8frUkwojFF9-1'>🎨</a>
