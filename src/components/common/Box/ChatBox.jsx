@@ -280,84 +280,84 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}
                 </Header>
                 <ChatContent ref={chatContentRef}>
-                    {messages.map((message, index) => (
-                        <Message theme={theme} key={index} isUser={message.isUser}>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: message.isUser ? 'flex-end' : 'flex-start',
-                                    alignItems: 'start',
-                                    margin: '10px 0',
-                                }}
-                            >
-                                {message.isUser && (
-    <img
-        src={userimage && userimage !== '0'
-            ? profileImages[parseInt(userimage) - 1]?.path || profile16
-            : profile16}
-        alt="avatar"
-        style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            marginLeft: '10px',
-            border: '1px solid white'
-        }}
-    />
-)}
+                {messages.map((message, index) => (
+    <Message theme={theme} key={index} isUser={message.isUser}>
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: message.isUser ? 'flex-end' : 'flex-start',
+                alignItems: 'start',
+                margin: '10px 0',
+            }}
+        >
+            {message.isUser && (
+                <img
+                    src={userimage && userimage !== '0'
+                        ? profileImages[parseInt(userimage) - 1]?.path || profile16
+                        : profile16}
+                    alt="avatar"
+                    style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        marginLeft: '10px',
+                        border: '1px solid white'
+                    }}
+                />
+            )}
 
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        justifyContent: 'flex-start',
-                                        alignItems: 'start'
-                                    }}>
-                                    <div
-                                        style={{
-                                            backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
-                                            padding: '10px 15px',
-                                            borderRadius: '10px',
-                                            maxWidth: '80%',
-                                            textAlign: 'left',
-                                            border: '1px solid white'
-                                        }}
-                                    >
-                                        {message.body}
-                                    </div>
-                                    {message.image && (
-                                        <div style={{ textAlign: "center", margin: "10px 0" }}>
-                                            <img
-                                                src={message.image}
-                                                alt="emotion indicator"
-                                                style={{
-                                                    width: "150px",
-                                                    height: "150px",
-                                                    borderRadius: "10px",
-                                                }}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-start',
+                    alignItems: 'start'
+                }}>
+                <div
+                    style={{
+                        backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
+                        padding: '10px 15px',
+                        borderRadius: '10px',
+                        maxWidth: '80%',
+                        textAlign: 'left',
+                        border: '1px solid white'
+                    }}
+                >
+                    {message.body}
+                </div>
+                {message.image && (
+                    <div style={{ textAlign: "center", margin: "10px 0" }}>
+                        <img
+                            src={message.image}
+                            alt="emotion indicator"
+                            style={{
+                                width: "150px",
+                                height: "150px",
+                                borderRadius: "10px",
+                            }}
+                        />
+                    </div>
+                )}
+            </div>
 
-                                {message.isUser && (
-                                    <img
-                                        src={userimage && userimage !== '0'
-                                            ? profileImages[parseInt(userimage) - 1]?.path || defaultProfileImage
-                                            : defaultProfileImage}
-                                        alt="avatar"
-                                        style={{
-                                            width: '40px',
-                                            height: '40px',
-                                            borderRadius: '50%',
-                                            marginLeft: '10px',
-                                            border: '1px solid white'
-                                        }}
-                                    />
-                                )}
-                            </div>
-                        </Message>
-                    ))}
+            {message.isUser && (
+                <img
+                    src={userimage && userimage !== '0'
+                        ? profileImages[parseInt(userimage) - 1]?.path || profile16
+                        : profile16}
+                    alt="avatar"
+                    style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        marginLeft: '10px',
+                        border: '1px solid white'
+                    }}
+                />
+            )}
+        </div>
+    </Message>
+))}
                 </ChatContent>
                 <Footer>
                     <InputSection
