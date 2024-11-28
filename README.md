@@ -54,13 +54,13 @@
       <img src="https://github.com/gka0903.png" alt="함형범" width="100">
     </td>
     <td>
-      <img src="https://github.com/carrotcake218w.png" alt="엄새연" width="100">
+      <img src="https://github.com/carrotcake218.png" alt="엄새연" width="100">
     </td>
   </tr>
   <tr>
     <td>@mrangjw</td>
     <td>@gka0903</td>
-    <td>@carrotcake218w</td>
+    <td>@carrotcake218</td>
   </tr>
   <tr>
     <td>프론트전반 <br>(Log in, Sign Up 등등 구축)</td>
