@@ -117,6 +117,9 @@
 
 ## 👀 화면 구성
 
+### 로그인, 회원가입, 마이페이지
+
+ ![image](https://github.com/user-attachments/assets/57d9ce26-825a-491f-a98f-cc04bd5fac26)
 <table>
   <tr>
     <th>로그인, 회원가입, 마이페이지</th>
