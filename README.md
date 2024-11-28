@@ -1,4 +1,4 @@
-SW프리캡스톤 | 4조 다마고치
+#SW프리캡스톤 | 4조 다마고치
 ![image](https://github.com/user-attachments/assets/fc593705-70af-405a-939d-3be81591f8d8)
 
 
