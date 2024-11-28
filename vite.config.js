@@ -17,10 +17,6 @@ export default defineConfig({
       },
     },
   },
-    changeOrigin: true
-      }
-    }
-  },
   // 이미지 등 정적 파일 처리를 위한 설정 추가
   build: {
     assetsDir: 'assets',
@@ -32,15 +28,15 @@ export default defineConfig({
             extType = 'img';
           }
           return `assets/${extType}/[name]-[hash][extname]`;
-        }
-      }
-    }
+        },
+      },
+    },
   },
   // 절대 경로 alias 설정
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@assets': path.resolve(__dirname, './src/assets')
-    }
-  }
+      '@assets': path.resolve(__dirname, './src/assets'),
+    },
+  },
 });
