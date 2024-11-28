@@ -85,13 +85,13 @@
 
 ## 💡사용 기술
 
-### Front-end
+### 💡Front-end
 
 <ul>
   <li>Figma,React + Vite</li>
 </ul>
 
-### Back-end
+### 💡Back-end
 
 <ul>
   <li>Spring Boot, MySQL, ChatGPT (OpenAI API), Unity, Naver CLOVA sentimente</li>
