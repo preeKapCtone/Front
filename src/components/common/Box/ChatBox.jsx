@@ -9,29 +9,118 @@ import {
     Wrapper,
     Header,
     Footer,
-    Message, InteractionButton
+    Message,
+    InteractionButton
 } from "./ChatBoxCss.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faHome } from '@fortawesome/free-solid-svg-icons';
-import Tuttle from "../../../assets/images/characters/Turttle.png";
-import Frieren from "../../../assets/images/characters/Frieren.png";
-import Baek  from "../../../assets/images/characters/Baek.png";
+import {faHome} from '@fortawesome/free-solid-svg-icons';
 import {usePost} from "../../../hooks/usePost.js";
 
+// 캐릭터 이미지 import
+import Tuttle from "../../../assets/images/characters/Turttle.png";
+import Frieren from "../../../assets/images/characters/Frieren.png";
+import Baek from "../../../assets/images/characters/Baek.png";
+import defaultProfileImage from '../../../assets/images/profileimage/pro16.png';
 
+// Frieren의 감정 이미지들
+import FrierenHappy1 from '../../../assets/images/characters/emotions/Frieren_happy1.gif';
+import FrierenHappy2 from '../../../assets/images/characters/emotions/Frieren_happy2.gif';
+import FrierenHappy3 from '../../../assets/images/characters/emotions/Frieren_happy3.gif';
+import FrierenAngry1 from '../../../assets/images/characters/emotions/Frieren_angry1.gif';
+import FrierenAngry2 from '../../../assets/images/characters/emotions/Frieren_angry2.gif';
+import FrierenAngry3 from '../../../assets/images/characters/emotions/Frieren_angry3.gif';
+import FrierenNeutral1 from '../../../assets/images/characters/emotions/Frieren_neutral1.gif';
+import FrierenNeutral2 from '../../../assets/images/characters/emotions/Frieren_neutral2.gif';
+import FrierenNeutral3 from '../../../assets/images/characters/emotions/Frieren_neutral3.gif';
+
+// Boogie의 감정 이미지들
+import BoogieHappy1 from '../../../assets/images/characters/emotions/Boogie_happy1.gif';
+import BoogieHappy2 from '../../../assets/images/characters/emotions/Boogie_happy2.gif';
+import BoogieHappy3 from '../../../assets/images/characters/emotions/Boogie_happy3.gif';
+import BoogieAngry1 from '../../../assets/images/characters/emotions/Boogie_angry1.gif';
+import BoogieAngry2 from '../../../assets/images/characters/emotions/Boogie_angry2.gif';
+import BoogieAngry3 from '../../../assets/images/characters/emotions/Boogie_angry3.gif';
+import BoogieNeutral1 from '../../../assets/images/characters/emotions/Boogie_neutral1.gif';
+import BoogieNeutral2 from '../../../assets/images/characters/emotions/Boogie_neutral2.gif';
+import BoogieNeutral3 from '../../../assets/images/characters/emotions/Boogie_neutral3.gif';
+
+// JongwonBaek의 감정 이미지들
+import BaekHappy1 from '../../../assets/images/characters/emotions/JongwonBaek_happy1.gif';
+import BaekHappy2 from '../../../assets/images/characters/emotions/JongwonBaek_happy2.gif';
+import BaekHappy3 from '../../../assets/images/characters/emotions/JongwonBaek_happy3.gif';
+import BaekAngry1 from '../../../assets/images/characters/emotions/JongwonBaek_angry1.gif';
+import BaekAngry2 from '../../../assets/images/characters/emotions/JongwonBaek_angry2.gif';
+import BaekAngry3 from '../../../assets/images/characters/emotions/JongwonBaek_angry3.gif';
+import BaekNeutral1 from '../../../assets/images/characters/emotions/JongwonBaek_neutral1.gif';
+import BaekNeutral2 from '../../../assets/images/characters/emotions/JongwonBaek_neutral2.gif';
+import BaekNeutral3 from '../../../assets/images/characters/emotions/JongwonBaek_neutral3.gif';
+
+// 프로필 이미지들 import
+import profile1 from '../../../assets/images/profileimage/pro1.png';
+import profile2 from '../../../assets/images/profileimage/pro2.png';
+import profile3 from '../../../assets/images/profileimage/pro3.png';
+import profile4 from '../../../assets/images/profileimage/pro4.png';
+import profile5 from '../../../assets/images/profileimage/pro5.png';
+import profile6 from '../../../assets/images/profileimage/pro6.png';
+import profile7 from '../../../assets/images/profileimage/pro7.png';
+import profile8 from '../../../assets/images/profileimage/pro8.png';
+import profile9 from '../../../assets/images/profileimage/pro9.png';
+import profile10 from '../../../assets/images/profileimage/pro10.png';
+import profile11 from '../../../assets/images/profileimage/pro11.png';
+import profile12 from '../../../assets/images/profileimage/pro12.png';
+import profile13 from '../../../assets/images/profileimage/pro13.png';
+import profile14 from '../../../assets/images/profileimage/pro14.png';
+import profile15 from '../../../assets/images/profileimage/pro15.png';
+import profile16 from '../../../assets/images/profileimage/pro16.png';
+
+const profileImages = [
+    { id: '1', path: profile1 },
+    { id: '2', path: profile2 },
+    { id: '3', path: profile3 },
+    { id: '4', path: profile4 },
+    { id: '5', path: profile5 },
+    { id: '6', path: profile6 },
+    { id: '7', path: profile7 },
+    { id: '8', path: profile8 },
+    { id: '9', path: profile9 },
+    { id: '10', path: profile10 },
+    { id: '11', path: profile11 },
+    { id: '12', path: profile12 },
+    { id: '13', path: profile13 },
+    { id: '14', path: profile14 },
+    { id: '15', path: profile15 },
+    { id: '16', path: profile16 }
+];
+
+const emotionImages = {
+    'Frieren': {
+        긍정적: [FrierenHappy1, FrierenHappy2, FrierenHappy3],
+        부정적: [FrierenAngry1, FrierenAngry2, FrierenAngry3],
+        중립적: [FrierenNeutral1, FrierenNeutral2, FrierenNeutral3]
+    },
+    'Boogie': {
+        긍정적: [BoogieHappy1, BoogieHappy2, BoogieHappy3],
+        부정적: [BoogieAngry1, BoogieAngry2, BoogieAngry3],
+        중립적: [BoogieNeutral1, BoogieNeutral2, BoogieNeutral3]
+    },
+    'JongwonBaek': {
+        긍정적: [BaekHappy1, BaekHappy2, BaekHappy3],
+        부정적: [BaekAngry1, BaekAngry2, BaekAngry3],
+        중립적: [BaekNeutral1, BaekNeutral2, BaekNeutral3]
+    }
+};
 
 export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
-    const [message, setMessage] = useState(''); // 입력 상태
-    const [messages, setMessages] = useState([]); // 화면에 표시될 메시지
-    const [responses, setResponses] = useState([]); // 서버로 전송될 데이터
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [responses, setResponses] = useState([]);
     const [selectedAssistantID, setSelectedAssistantID] = useState('');
-    const [assistantName, setAssistantName] = useState(''); // 선택된 어시스턴트 이름
+    const [assistantName, setAssistantName] = useState('');
     const chatContentRef = useRef(null);
     const navigate = useNavigate();
     const userimage = localStorage.getItem('userimage');
-    const defaultImage = '/src/assets/images/profileimage/pro16.png';
 
     const assistantOptions = [
         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren", image: Frieren },
@@ -39,15 +128,13 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         { id: "asst_5FfVKVREEoTvUmc09S0iAcnw", name: "JongwonBaek", image: Baek },
     ];
 
-    const [imageSrc, setImageSrc] = useState(Frieren); // 현재 캐릭터 이미지
+    const [imageSrc, setImageSrc] = useState(Frieren);
 
     const sendMessage = async () => {
         if (message.trim() === '' || selectedAssistantID === '') return;
 
-        // 랜덤 번호 생성
         const randomNumber = Math.floor(Math.random() * 3) + 1;
 
-        // 사용자의 메시지를 먼저 추가
         const userMessage = {
             postId: messages.length + 1,
             title: assistantName,
@@ -58,7 +145,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         };
         setMessages([...messages, userMessage]);
 
-        // 상대방이 입력 중 상태 추가
         const typingMessage = {
             postId: messages.length + 2,
             title: assistantName,
@@ -72,7 +158,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         setMessage('');
 
         try {
-            // 서버에 메시지 전송
             const response = await axios.post(
                 '/fastapi/posts',
                 {
@@ -80,31 +165,26 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                     assistant_id: selectedAssistantID
                 }, {
                     headers: {
-                        // 필요한 최소 헤더만 포함
                         'Content-Type': 'application/json',
                     }
                 }
             );
 
-            // 응답 메시지와 감정 상태
             const botResponse = response.data.response;
-            const botSentiment = response.data.sentiment; // 감정 상태
+            const botSentiment = response.data.sentiment;
 
-            // 감정에 따른 이미지 동적으로 설정
             const sentimentMap = {
-                긍정적: `/src/assets/images/characters/emotions/${name}_happy${randomNumber}.gif`,
-                부정적: `/src/assets/images/characters/emotions/${name}_angry${randomNumber}.gif`,
-                중립적: `/src/assets/images/characters/emotions/${name}_neutral${randomNumber}.gif`,
+                긍정적: emotionImages[name]?.긍정적[randomNumber - 1],
+                부정적: emotionImages[name]?.부정적[randomNumber - 1],
+                중립적: emotionImages[name]?.중립적[randomNumber - 1],
             };
 
-            // 대화 기록 업데이트
             setResponses([
                 ...responses,
-                { title: assistantName, body: message }, // 유저 메시지
-                { title: assistantName, body: botResponse } // 봇 응답
+                { title: assistantName, body: message },
+                { title: assistantName, body: botResponse }
             ]);
 
-            // "입력 중" 메시지를 실제 봇 응답으로 교체하고 이미지 추가
             setMessages((prevMessages) =>
                 prevMessages.map((msg) =>
                     msg.postId === typingMessage.postId
@@ -117,7 +197,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 )
             );
 
-            setMessage('');  // 입력창 초기화
+            setMessage('');
 
         } catch (error) {
             console.error("Error sending message:", error);
@@ -125,7 +205,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         }
     };
 
-    // 화면을 벗어날 때 호출될 함수
     const handleExit = async () => {
         if (responses.length === 0) {
             return;
@@ -133,14 +212,12 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         const token = localStorage.getItem('token');
         try {
             await usePost("/api/posts", responses, token);
-            // API 호출
             console.log("Chat history saved successfully.");
         } catch (error) {
             console.error("Error saving chat history:", error);
         }
     };
 
-    // 새로고침 방지 및 경고 메시지 표시
     useEffect(() => {
         const handleBeforeUnload = (e) => {
             e.preventDefault();
@@ -156,7 +233,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     }, [messages]);
 
     useEffect(() => {
-        setMessages(initialMessages || []); // messages 값을 업데이트
+        setMessages(initialMessages || []);
     }, [initialMessages]);
 
     useEffect(() => {
@@ -164,7 +241,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     }, [responses]);
 
     useEffect(() => {
-        // 새 메시지가 추가될 때 스크롤을 맨 아래로 이동
         if (chatContentRef.current) {
             chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
         }
@@ -176,7 +252,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
             if (selectedAssistant) {
                 setSelectedAssistantID(selectedAssistant.id);
                 setAssistantName(selectedAssistant.name);
-                setImageSrc(selectedAssistant.image); // 캐릭터 이미지 설정
+                setImageSrc(selectedAssistant.image);
             } else {
                 console.error(`Assistant with name "${name}" not found.`);
             }
@@ -185,7 +261,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
 
     return (
         <Wrapper theme={theme}>
-            {/* 바깥에 전체를 감싸는 컴포넌트 */}
             <NavigationBar theme={theme}>
                 <HomeButton theme={theme} onClick={() => {
                     handleExit().then(() =>  onClose());}}>
@@ -202,7 +277,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                     </CloseButton>
                 </div>
             </NavigationBar>
-            {/* ChatContainer가 들어가는 영역 */}
             <ChatContainer theme={theme}>
                 <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}
                 </Header>
@@ -217,7 +291,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                     margin: '10px 0',
                                 }}
                             >
-                                {/* 상대방 메시지: 이미지 왼쪽 */}
                                 {!message.isUser && (
                                     <img
                                         src={imageSrc}
@@ -225,21 +298,20 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                         style={{
                                             width: '40px',
                                             height: '40px',
-                                            borderRadius: '50%', // 원형 이미지
-                                            marginRight: '10px', // 박스와 이미지 간격
+                                            borderRadius: '50%',
+                                            marginRight: '10px',
                                             border: '1px solid white'
                                         }}
                                     />
                                 )}
 
-                                {/* 메시지 텍스트 */}
                                 <div
                                     style={{
                                         display: 'flex',
                                         flexDirection: 'column',
                                         justifyContent: 'flex-start',
                                         alignItems: 'start'
-                                }}>
+                                    }}>
                                     <div
                                         style={{
                                             backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
@@ -267,18 +339,17 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                                     )}
                                 </div>
 
-                                {/* 유저 메시지: 이미지 오른쪽 */}
                                 {message.isUser && (
                                     <img
                                         src={userimage && userimage !== '0'
-                                            ? `/src/assets/images/profileimage/pro${userimage}.png`
-                                            : defaultImage} // 유저 이미지 또는 다른 기본 이미지
+                                            ? profileImages[parseInt(userimage) - 1]?.path || defaultProfileImage
+                                            : defaultProfileImage}
                                         alt="avatar"
                                         style={{
                                             width: '40px',
                                             height: '40px',
-                                            borderRadius: '50%', // 원형 이미지
-                                            marginLeft: '10px', // 박스와 이미지 간격
+                                            borderRadius: '50%',
+                                            marginLeft: '10px',
                                             border: '1px solid white'
                                         }}
                                     />
