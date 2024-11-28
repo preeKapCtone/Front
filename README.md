@@ -47,20 +47,19 @@
     <th>엄새연</th>
   </tr>
   <tr>
-    <td><img src="[https://via.placeholder.com/100](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2vfG3wQ0FIZ7b5Ov1V5a2DzrKMo001lzNvQ&s)" alt="양정우" width="100"></td>
-    <td><img src="[https://via.placeholder.com/100](https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/CVs2KUwufUf8MpCYrI3vXjrxEWg)" alt="함형범" width="100"></td>
-    <td><img src="[https://via.placeholder.com/100](https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/kgrX09LHBjBn2htx2q84hlBLFgs)" alt="엄새연" width="100"></td>
+    <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2vfG3wQ0FIZ7b5Ov1V5a2DzrKMo001lzNvQ&s" alt="양정우" width="100"></td>
+    <td><img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/CVs2KUwufUf8MpCYrI3vXjrxEWg" alt="함형범" width="100"></td>
+    <td><img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/kgrX09LHBjBn2htx2q84hlBLFgs" alt="엄새연" width="100"></td>
   </tr>
   <tr>
     <td>@mrangjw</td>
     <td>@gka0903</td>
     <td>@carrotcake218w</td>
-    
   </tr>
   <tr>
-    <td>프론트전반 <br>(Log in ,Sign Up. 등등.. 구축)</td>
+    <td>프론트전반 <br>(Log in, Sign Up 등등 구축)</td>
     <td>프론트 세부 <br>(Chat Logic Making 및 설계)</td>
-    <td>UI디자인 및 <br>데이터 추출</td>
+    <td>UI 디자인 및 <br>데이터 추출</td>
   </tr>
 </table>
 
@@ -71,14 +70,31 @@
     <th>성규현</th>
   </tr>
   <tr>
-    <td><img src="[https://via.placeholder.com/100](https://i.namu.wiki/i/kPJMhf3xm02hfkdpjV-YJ9iE-B4t21ENfLOjJ50ASIWDkvqvtnhW1uOVRV_gfTFjuQEsjHuZJprBL_zLhzgrQg.png)" alt="이재욱" width="100"></td>
-    <td><img src="[https://via.placeholder.com/100](https://i.namu.wiki/i/8MG7rjLvqGon0snc5mX3L03TAr3WRW-D6WoW-ouOn3BdawjtlTsa7nCAgPphi_uy3-s_jKiYita-uZ2N4QudtQ.webp)" alt="성규현" width="100"></td>
+    <td><img src="https://i.namu.wiki/i/kPJMhf3xm02hfkdpjV-YJ9iE-B4t21ENfLOjJ50ASIWDkvqvtnhW1uOVRV_gfTFjuQEsjHuZJprBL_zLhzgrQg.png" alt="이재욱" width="100"></td>
+    <td><img src="https://i.namu.wiki/i/8MG7rjLvqGon0snc5mX3L03TAr3WRW-D6WoW-ouOn3BdawjtlTsa7nCAgPphi_uy3-s_jKiYita-uZ2N4QudtQ.webp" alt="성규현" width="100"></td>
   </tr>
   <tr>
     <td>@22-JWL</td>
     <td>@dmp100</td>
   </tr>
   <tr>
-    <td>백엔드 <br>(Spring boot)</td>
-    <td>프로젝트 총괄(팀장), AI 모델구현, <br>API 서버 구축 , Unity Interface </td>
+    <td>백엔드 <br>(Spring Boot)</td>
+    <td>프로젝트 총괄(팀장), AI 모델 구현, <br>API 서버 구축, Unity Interface</td>
+  </tr>
+</table>
 
+## 💡사용 기술
+
+### Front-end
+
+<ul>
+  <li>Figma,React + Vite</li>
+</ul>
+
+### Back-end
+
+<ul>
+  <li>Spring Boot, MySQL, ChatGPT (OpenAI API), Unity, Naver CLOVA sentimente</li>
+</ul>
+
+![image](https://github.com/user-attachments/assets/d68f2aa5-fec5-4dcb-8832-d45093e88463)
