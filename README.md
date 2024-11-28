@@ -65,6 +65,18 @@
   </li>
 </ul>
 
+## 🌟 다마고치의 차별화된 서비스
+<ul>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🌟 백종원 캐릭터는 데이터를 바탕으로 친숙한 대화와 함께 레시피 정보와 요리에 관한 지식을 제공하여 실질적이고 몰입도 높은 사용자 경험을 선사합니다.</span><br> </li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🌟 상상부기 캐릭터는 학우들의 학업 스트레스 완화와 함께, 캠퍼스 생활에 필요한 학사 정보를 친근한 대화 형식으로 제공합니다. 이를 통해 학우들은 정보 탐색은 물론 심리적 안정감을 얻을 수 있습니다.</span><br></li>
+  <li style="list-style-type: none; margin-bottom: 10px;">
+    <span style="font-size: 18px; font-weight: bold;">🌟 프리렌 캐릭터는 독특한 판타지 세계관과 스토리를 기반으로 하여, 사용자들이 대화와 시나리오를 통해 마치 한 편의 모험담을 함께 써 내려가는 듯한 창의적인 경험을 제공합니다.</span><br>
+  
+  </li>
+
+
 
 ## 🐢 팀원 소개
 
