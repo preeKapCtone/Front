@@ -261,103 +261,112 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     return (
         <Wrapper theme={theme}>
             <NavigationBar theme={theme}>
-                <HomeButton theme={theme} onClick={() => {
-                    handleExit().then(() =>  onClose());}}>
-                    <FontAwesomeIcon icon={faHome}/>
+                <HomeButton
+                    theme={theme}
+                    onClick={() => {
+                        handleExit().then(() => onClose());
+                    }}
+                >
+                    <FontAwesomeIcon icon={faHome} />
                 </HomeButton>
-                <div style={{display: "flex", alignItems: "center", gap: "10px"}}>
-                    <InteractionButton theme={theme} onClick={() => navigate(`/interaction/${name}`)}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <InteractionButton
+                        theme={theme}
+                        onClick={() => navigate(`/interaction/${name}`)}
+                    >
                         상호작용
                     </InteractionButton>
-                    <CloseButton theme={theme} onClick={() => {
-                        handleExit().then(() =>  onClose());
-                    }}>
+                    <CloseButton
+                        theme={theme}
+                        onClick={() => {
+                            handleExit().then(() => onClose());
+                        }}
+                    >
                         X
                     </CloseButton>
                 </div>
             </NavigationBar>
             <ChatContainer theme={theme}>
-                <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}
-                </Header>
+                <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
                 <ChatContent ref={chatContentRef}>
-                {messages.map((message, index) => (
-    <Message theme={theme} key={index} isUser={message.isUser}>
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: message.isUser ? 'flex-end' : 'flex-start',
-                alignItems: 'start',
-                margin: '10px 0',
-            }}
-        >
-            {message.isUser && (
-                <img
-                    src={userimage && userimage !== '0'
-                        ? profileImages[parseInt(userimage) - 1]?.path || profile16
-                        : profile16}
-                    alt="avatar"
-                    style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%',
-                        marginLeft: '10px',
-                        border: '1px solid white'
-                    }}
-                />
-            )}
-
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-start',
-                    alignItems: 'start'
-                }}>
-                <div
-                    style={{
-                        backgroundColor: message.isUser ? theme.chatBubbleColor : '#ffffff',
-                        padding: '10px 15px',
-                        borderRadius: '10px',
-                        maxWidth: '80%',
-                        textAlign: 'left',
-                        border: '1px solid white'
-                    }}
-                >
-                    {message.body}
-                </div>
-                {message.image && (
-                    <div style={{ textAlign: "center", margin: "10px 0" }}>
-                        <img
-                            src={message.image}
-                            alt="emotion indicator"
-                            style={{
-                                width: "150px",
-                                height: "150px",
-                                borderRadius: "10px",
-                            }}
-                        />
-                    </div>
-                )}
-            </div>
-
-            {message.isUser && (
-                <img
-                    src={userimage && userimage !== '0'
-                        ? profileImages[parseInt(userimage) - 1]?.path || profile16
-                        : profile16}
-                    alt="avatar"
-                    style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%',
-                        marginLeft: '10px',
-                        border: '1px solid white'
-                    }}
-                />
-            )}
-        </div>
-    </Message>
-))}
+                    {messages.map((message, index) => (
+                        <Message theme={theme} key={index} isUser={message.isUser}>
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: message.isUser
+                                        ? "flex-end"
+                                        : "flex-start",
+                                    alignItems: "start",
+                                    margin: "10px 0",
+                                }}
+                            >
+                                {/* 삭제: 채팅 앞에 있던 프로필 이미지 */}
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "flex-start",
+                                        alignItems: "start",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            backgroundColor: message.isUser
+                                                ? theme.chatBubbleColor
+                                                : "#ffffff",
+                                            padding: "10px 15px",
+                                            borderRadius: "10px",
+                                            maxWidth: "80%",
+                                            textAlign: "left",
+                                            border: "1px solid white",
+                                        }}
+                                    >
+                                        {message.body}
+                                    </div>
+                                    {message.image && (
+                                        <div
+                                            style={{
+                                                textAlign: "center",
+                                                margin: "10px 0",
+                                            }}
+                                        >
+                                            <img
+                                                src={message.image}
+                                                alt="emotion indicator"
+                                                style={{
+                                                    width: "150px",
+                                                    height: "150px",
+                                                    borderRadius: "10px",
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+    
+                                {/* 유지: 채팅 말풍선 뒤의 프로필 이미지 */}
+                                {message.isUser && (
+                                    <img
+                                        src={
+                                            userimage && userimage !== "0"
+                                                ? profileImages[
+                                                      parseInt(userimage) - 1
+                                                  ]?.path || profile16
+                                                : profile16
+                                        }
+                                        alt="avatar"
+                                        style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%",
+                                            marginLeft: "10px",
+                                            border: "1px solid white",
+                                        }}
+                                    />
+                                )}
+                            </div>
+                        </Message>
+                    ))}
                 </ChatContent>
                 <Footer>
                     <InputSection
@@ -369,9 +378,12 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 </Footer>
             </ChatContainer>
             <NavigationBar theme={theme}>
-                <HomeButton theme={theme} onClick={() => {
-                    handleExit().then(() =>  onClose());
-                }}>
+                <HomeButton
+                    theme={theme}
+                    onClick={() => {
+                        handleExit().then(() => onClose());
+                    }}
+                >
                     &#8592;
                 </HomeButton>
             </NavigationBar>
