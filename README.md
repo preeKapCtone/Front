@@ -80,5 +80,5 @@
   </tr>
   <tr>
     <td>백엔드 (Spring boot)</td>
-    <td>프로젝트 총괄(팀장), AI 모델구현, API 서버 구축 , Unity Interface </td>
+    <td>프로젝트 총괄(팀장), AI 모델구현, <br>API 서버 구축 , Unity Interface </td>
 
