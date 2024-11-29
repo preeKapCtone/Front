@@ -9,7 +9,6 @@ import {
     Wrapper,
     Header,
     Footer,
-    Message,
     InteractionButton
 } from "./ChatBoxCss.jsx";
 import {useNavigate} from "react-router-dom";
@@ -111,6 +110,47 @@ const emotionImages = {
     }
 };
 
+const Message = ({ theme, message, imageSrc }) => {
+    const userimage = localStorage.getItem('userimage');
+    
+    return (
+        <div className="flex justify-start items-start m-2.5">
+            {/* Character profile image */}
+            {!message.isUser && (
+                <img
+                    src={message.image || imageSrc}
+                    alt="character-avatar"
+                    className="w-10 h-10 rounded-full mr-2.5 border border-white"
+                />
+            )}
+            
+            {/* Message content */}
+            <div 
+                className={`max-w-[70%] break-words p-2.5 rounded-lg ${
+                    message.isUser 
+                        ? 'bg-blue-500 text-white ml-auto' 
+                        : 'bg-gray-200 text-black'
+                }`}
+            >
+                {message.body}
+            </div>
+            
+            {/* User profile image */}
+            {message.isUser && (
+                <img
+                    src={
+                        userimage && userimage !== "0"
+                            ? profileImages[parseInt(userimage) - 1]?.path || profile16
+                            : profile16
+                    }
+                    alt="user-avatar"
+                    className="w-10 h-10 rounded-full ml-2.5 border border-white"
+                />
+            )}
+        </div>
+    );
+};
+
 export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
@@ -119,7 +159,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     const [assistantName, setAssistantName] = useState('');
     const chatContentRef = useRef(null);
     const navigate = useNavigate();
-    const userimage = localStorage.getItem('userimage');
 
     const assistantOptions = [
         { id: "asst_VB5esFXsOGeJaQ4vTdlOyHVY", name: "Frieren", image: Frieren },
@@ -162,7 +201,8 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 {
                     user_message: message,
                     assistant_id: selectedAssistantID
-                }, {
+                },
+                {
                     headers: {
                         'Content-Type': 'application/json',
                     }
@@ -196,8 +236,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 )
             );
 
-            setMessage('');
-
         } catch (error) {
             console.error("Error sending message:", error);
             alert("메시지 전송 중 오류가 발생했습니다. 다시 시도해 주세요.");
@@ -220,8 +258,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     useEffect(() => {
         const handleBeforeUnload = (e) => {
             e.preventDefault();
-            e.returnValue =
-                "새로고침하면 대화 내용이 사라질 수 있습니다. 계속하시겠습니까?";
+            e.returnValue = "새로고침하면 대화 내용이 사라질 수 있습니다. 계속하시겠습니까?";
         };
 
         window.addEventListener("beforeunload", handleBeforeUnload);
@@ -234,10 +271,6 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
     useEffect(() => {
         setMessages(initialMessages || []);
     }, [initialMessages]);
-
-    useEffect(() => {
-        console.log("responses : ", responses);
-    }, [responses]);
 
     useEffect(() => {
         if (chatContentRef.current) {
@@ -287,65 +320,37 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 </div>
             </NavigationBar>
             <ChatContainer theme={theme}>
-                <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
-                <ChatContent ref={chatContentRef}>
-                    {messages.map((message, index) => (
-                        <Message theme={theme} key={index} isUser={message.isUser}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: message.isUser
-                                        ? "flex-end"
-                                        : "flex-start",
-                                    alignItems: "start",
-                                    margin: "10px 0",
-                                }}
-                            >
-                            
-                                {/* 유지: 채팅 말풍선 뒤의 프로필 이미지 */}
-                                {message.isUser && (
-                                    <img
-                                        src={
-                                            userimage && userimage !== "0"
-                                                ? profileImages[
-                                                    parseInt(userimage) - 1
-                                                ]?.path || profile16
-                                                : profile16
-                                        }
-                                        alt="avatar"
-                                        style={{
-                                            width: "40px",
-                                            height: "40px",
-                                            borderRadius: "50%",
-                                            marginLeft: "10px",
-                                            border: "1px solid white",
-                                        }}
-                                    />
-                                )}
-                            </div>
-                        </Message>
-                    ))}
-                </ChatContent>
-                <Footer>
-                    <InputSection
-                        theme={theme}
-                        message={message}
-                        setMessage={setMessage}
-                        onSend={sendMessage}
-                    />
-                </Footer>
-            </ChatContainer>
-            <NavigationBar theme={theme}>
-                <HomeButton
-                    theme={theme}
-                    onClick={() => {
-                        handleExit().then(() => onClose());
-                    }}
-                >
-                    &#8592;
-                </HomeButton>
-            </NavigationBar>
-        </Wrapper>
+    <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
+    <ChatContent ref={chatContentRef}>
+        {messages.map((message, index) => (
+            <Message
+                key={index}
+                theme={theme}
+                message={message}
+                imageSrc={imageSrc}
+            />
+        ))}
+    </ChatContent>
+    <Footer>
+        <InputSection
+            theme={theme}
+            message={message}
+            setMessage={setMessage}
+            onSend={sendMessage}
+        />
+    </Footer>
+</ChatContainer>
+<NavigationBar theme={theme}>
+    <HomeButton
+        theme={theme}
+        onClick={() => {
+            handleExit().then(() => onClose());
+        }}
+    >
+        &#8592;
+    </HomeButton>
+</NavigationBar>
+</Wrapper>
     );
 };
 
