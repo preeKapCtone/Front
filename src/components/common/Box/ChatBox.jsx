@@ -9,6 +9,7 @@ import {
     Wrapper,
     Header,
     Footer,
+    Message,
     InteractionButton
 } from "./ChatBoxCss.jsx";
 import {useNavigate} from "react-router-dom";
@@ -112,41 +113,58 @@ const emotionImages = {
 
 const Message = ({ theme, message, imageSrc }) => {
     const userimage = localStorage.getItem('userimage');
-    
+
     return (
-        <div className="flex justify-start items-start m-2.5">
-            {/* Character profile image */}
-            {!message.isUser && (
-                <img
-                    src={message.image || imageSrc}
-                    alt="character-avatar"
-                    className="w-10 h-10 rounded-full mr-2.5 border border-white"
-                />
-            )}
-            
-            {/* Message content */}
-            <div 
-                className={`max-w-[70%] break-words p-2.5 rounded-lg ${
-                    message.isUser 
-                        ? 'bg-blue-500 text-white ml-auto' 
-                        : 'bg-gray-200 text-black'
-                }`}
+        <div
+            style={{
+                display: "flex",
+                justifyContent: message.isUser ? "flex-end" : "flex-start",
+                alignItems: "center",
+                margin: "10px 0",
+                width: "100%",
+            }}
+        >
+            {/* 메시지와 프로필 이미지 컨테이너 */}
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: message.isUser ? "row" : "row-reverse",
+                    alignItems: "center",
+                    gap: "10px",
+                    maxWidth: "80%",
+                }}
             >
-                {message.body}
-            </div>
-            
-            {/* User profile image */}
-            {message.isUser && (
+                {/* 메시지 내용 */}
+                <div
+                    style={{
+                        background: message.isUser ? theme.userBubbleColor : theme.botBubbleColor,
+                        color: message.isUser ? theme.userTextColor : theme.botTextColor,
+                        padding: "10px 15px",
+                        borderRadius: "15px",
+                        maxWidth: "100%",
+                        wordBreak: "break-word",
+                    }}
+                >
+                    {message.body}
+                </div>
+
+                {/* 프로필 이미지 */}
                 <img
-                    src={
-                        userimage && userimage !== "0"
+                    src={message.isUser 
+                        ? (userimage && userimage !== "0"
                             ? profileImages[parseInt(userimage) - 1]?.path || profile16
-                            : profile16
+                            : profile16)
+                        : (message.image || imageSrc)
                     }
-                    alt="user-avatar"
-                    className="w-10 h-10 rounded-full ml-2.5 border border-white"
+                    alt={message.isUser ? "user-avatar" : "character-avatar"}
+                    style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        border: "1px solid white",
+                    }}
                 />
-            )}
+            </div>
         </div>
     );
 };
@@ -320,37 +338,37 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
                 </div>
             </NavigationBar>
             <ChatContainer theme={theme}>
-    <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
-    <ChatContent ref={chatContentRef}>
-        {messages.map((message, index) => (
-            <Message
-                key={index}
-                theme={theme}
-                message={message}
-                imageSrc={imageSrc}
-            />
-        ))}
-    </ChatContent>
-    <Footer>
-        <InputSection
-            theme={theme}
-            message={message}
-            setMessage={setMessage}
-            onSend={sendMessage}
-        />
-    </Footer>
-</ChatContainer>
-<NavigationBar theme={theme}>
-    <HomeButton
-        theme={theme}
-        onClick={() => {
-            handleExit().then(() => onClose());
-        }}
-    >
-        &#8592;
-    </HomeButton>
-</NavigationBar>
-</Wrapper>
+                <Header theme={theme}>{`HELLO, ${theme.name.toUpperCase()}`}</Header>
+                <ChatContent ref={chatContentRef}>
+                    {messages.map((message, index) => (
+                        <Message
+                            key={index}
+                            theme={theme}
+                            message={message}
+                            imageSrc={imageSrc}
+                        />
+                    ))}
+                </ChatContent>
+                <Footer>
+                    <InputSection
+                        theme={theme}
+                        message={message}
+                        setMessage={setMessage}
+                        onSend={sendMessage}
+                    />
+                </Footer>
+            </ChatContainer>
+            <NavigationBar theme={theme}>
+                <HomeButton
+                    theme={theme}
+                    onClick={() => {
+                        handleExit().then(() => onClose());
+                    }}
+                >
+                    &#8592;
+                </HomeButton>
+            </NavigationBar>
+        </Wrapper>
     );
 };
 
