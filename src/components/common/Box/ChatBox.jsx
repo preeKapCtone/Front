@@ -62,7 +62,7 @@ export const ChatBox = ({ theme, initialMessages, onClose, name }) => {
         const typingMessage = {
             postId: messages.length + 2,
             title: assistantName,
-            body: "상대방이 입력 중...",
+            body: "입력 중...",
             authorNickname: assistantName,
             isUser: false,
             image: null,
